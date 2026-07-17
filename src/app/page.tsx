@@ -21,12 +21,12 @@ export default function Home() {
             <div className="hero-copy hero-copy-wide">
               <p className="eyebrow">Causal consulting for pharma</p>
               <h1 className="hero-title">
-                Better study interpretation for pharmacological evidence that comes with real-world constraints.
+                Do you need DAG analysis?
               </h1>
               <p className="hero-intro">
                 Causality Graphs works with pharma, clinical research, and biostatistics teams to map assumptions,
-                review confounding structure, and support evidence decisions using directed acyclic graphs and dynamic
-                causal models.
+                review confounding structure, and support evidence decisions using directed acyclic graphs (DAG´s) and dynamic
+                causal models (DCM). 
               </p>
               <div className="hero-chip-row">
                 {heroChips.map((chip) => (
