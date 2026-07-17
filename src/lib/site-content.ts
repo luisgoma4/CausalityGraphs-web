@@ -168,24 +168,24 @@ export const principles = [
 
 export const teamMembers = [
   {
-    name: "Dr. Elena Maris",
-    role: "Founder and Causal Strategy Lead",
-    focus: "DAG design, estimand framing, and decision architecture for constrained pharmacological studies.",
+    name: "Dr. Alex Sospedra",
+    role: "Modeling expert",
+    focus: "DAG design, scientific decisions and architecture for constrained pharmacological studies.",
   },
   {
-    name: "Jonas Vale",
-    role: "Dynamic Systems Specialist",
-    focus: "Time-varying treatment response, mechanistic reasoning, and longitudinal model structure.",
+    name: "Daniel Rico",
+    role: "Data Analyst",
+    focus: "Denoising, correlating and parameter recovery",
   },
   {
-    name: "Mira Sol",
-    role: "Evidence Interpretation Consultant",
-    focus: "Sensitivity framing, translational communication, and alignment across clinical and statistical stakeholders.",
+    name: "Luis Gómez",
+    role: "Founder and Strategy Lead",
+    focus: "Strategy and aproach, communicator, operations officer",
   },
 ];
 
 export const contactDetails = [
   { label: "Email", value: "hello@causalitygraphs.com" },
-  { label: "Typical scope", value: "Study interpretation, DAG review, dynamic modeling, evidence strategy" },
+  { label: "Typical scope", value: "Study interpretation, DAG analysis, dynamic modeling, evidence strategy" },
   { label: "Response style", value: "Confidential, focused, and scientifically collaborative" },
 ];
