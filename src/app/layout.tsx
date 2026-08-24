@@ -1,7 +1,21 @@
 import type { Metadata } from "next";
-import Link from "next/link";
+import { Manrope, Fraunces } from "next/font/google";
 import "./globals.css";
-import { navItems } from "@/lib/site-content";
+import { SiteHeader } from "@/components/site-header";
+import { HtmlLangSetter } from "@/components/html-lang-setter";
+
+const bodyFont = Manrope({
+  subsets: ["latin"],
+  variable: "--font-body",
+  display: "swap",
+});
+
+const displayFont = Fraunces({
+  subsets: ["latin"],
+  variable: "--font-display-face",
+  display: "swap",
+  style: ["normal", "italic"],
+});
 
 export const metadata: Metadata = {
   title: "Causality Graphs",
@@ -15,27 +29,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="es" className={`${bodyFont.variable} ${displayFont.variable}`}>
       <body>
+        <HtmlLangSetter />
         <div className="site-background" />
-        <header className="site-header">
-          <div className="container nav-row">
-            <Link href="/" className="brand-lockup">
-              <span className="brand-dot" />
-              <span>
-                <strong>Causality</strong>
-                <small>Graphs</small>
-              </span>
-            </Link>
-            <nav className="site-nav" aria-label="Primary">
-              {navItems.map((item) => (
-                <Link key={item.href} href={item.href}>
-                  {item.label}
-                </Link>
-              ))}
-            </nav>
-          </div>
-        </header>
+        <SiteHeader />
         <main>{children}</main>
       </body>
     </html>

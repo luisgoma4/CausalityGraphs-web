@@ -1,7 +1,7 @@
 "use client";
 
 import { Float, Line, PerspectiveCamera } from "@react-three/drei";
-import { Canvas, useFrame } from "@react-three/fiber";
+import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { useEffect, useMemo, useRef, useState } from "react";
 import * as THREE from "three";
 
@@ -29,19 +29,29 @@ const edges = [
   [5, 2],
 ];
 
+type Tier = "low" | "mid" | "high";
+
+const TIER_GEOMETRY: Record<Tier, { node: number; glow: number; torusRadial: number; torusTubular: number }> = {
+  high: { node: 48, glow: 24, torusRadial: 18, torusTubular: 160 },
+  mid: { node: 32, glow: 16, torusRadial: 14, torusTubular: 96 },
+  low: { node: 20, glow: 12, torusRadial: 10, torusTubular: 64 },
+};
+
 function NetworkScene({
   reducedMotion,
-  compact,
+  tier,
   scrollProgress,
 }: {
   reducedMotion: boolean;
-  compact: boolean;
+  tier: Tier;
   scrollProgress: number;
 }) {
   const groupRef = useRef<THREE.Group>(null);
   const ringRef = useRef<THREE.Mesh>(null);
   const glowRef = useRef<THREE.Mesh>(null);
   const elapsedRef = useRef(0);
+  const { invalidate } = useThree();
+  const geometry = TIER_GEOMETRY[tier];
 
   const edgeCurves = useMemo(
     () =>
@@ -57,8 +67,36 @@ function NetworkScene({
     [],
   );
 
+  // Reduced motion: compute the scroll-driven pose once per scroll change instead of
+  // continuously lerping every frame, then request a single render via invalidate().
+  useEffect(() => {
+    if (!reducedMotion) return;
+
+    const scrollTilt = THREE.MathUtils.lerp(-0.18, 0.34, scrollProgress);
+    const scrollOrbit = scrollProgress * Math.PI * 0.42;
+    const lift = THREE.MathUtils.lerp(0.18, -0.34, scrollProgress);
+
+    if (groupRef.current) {
+      groupRef.current.rotation.y = scrollOrbit;
+      groupRef.current.rotation.x = scrollTilt;
+      groupRef.current.position.y = lift;
+      groupRef.current.position.x = scrollProgress * 0.9 - 0.25;
+    }
+    if (ringRef.current) {
+      ringRef.current.rotation.z = scrollProgress * 1.45;
+      ringRef.current.rotation.x = 1.05 + scrollProgress * 0.45;
+    }
+    if (glowRef.current) {
+      glowRef.current.position.x = scrollProgress * 0.75;
+      glowRef.current.position.y = -scrollProgress * 0.65;
+    }
+    invalidate();
+  }, [reducedMotion, scrollProgress, invalidate]);
+
   useFrame((state, delta) => {
-    elapsedRef.current += reducedMotion ? 0 : delta;
+    if (reducedMotion) return;
+
+    elapsedRef.current += delta;
     const t = elapsedRef.current;
     const pointerX = state.pointer.x * 0.22;
     const pointerY = state.pointer.y * 0.12;
@@ -74,12 +112,12 @@ function NetworkScene({
       );
       groupRef.current.rotation.x = THREE.MathUtils.lerp(
         groupRef.current.rotation.x,
-        (reducedMotion ? 0 : -pointerY) + scrollTilt,
+        -pointerY + scrollTilt,
         0.05,
       );
       groupRef.current.position.y = THREE.MathUtils.lerp(
         groupRef.current.position.y,
-        lift + (reducedMotion ? 0 : Math.sin(t * 0.45) * 0.08),
+        lift + Math.sin(t * 0.45) * 0.08,
         0.05,
       );
       groupRef.current.position.x = THREE.MathUtils.lerp(groupRef.current.position.x, scrollProgress * 0.9 - 0.25, 0.05);
@@ -88,12 +126,12 @@ function NetworkScene({
     if (ringRef.current) {
       ringRef.current.rotation.z = THREE.MathUtils.lerp(
         ringRef.current.rotation.z,
-        scrollProgress * 1.45 + (reducedMotion ? 0 : t * 0.12),
+        scrollProgress * 1.45 + t * 0.12,
         0.05,
       );
       ringRef.current.rotation.x = THREE.MathUtils.lerp(
         ringRef.current.rotation.x,
-        1.05 + scrollProgress * 0.45 + (reducedMotion ? 0 : Math.sin(t * 0.3) * 0.08),
+        1.05 + scrollProgress * 0.45 + Math.sin(t * 0.3) * 0.08,
         0.05,
       );
     }
@@ -101,12 +139,12 @@ function NetworkScene({
     if (glowRef.current) {
       glowRef.current.position.x = THREE.MathUtils.lerp(
         glowRef.current.position.x,
-        scrollProgress * 0.75 + (reducedMotion ? 0 : Math.sin(t * 0.5) * 0.25),
+        scrollProgress * 0.75 + Math.sin(t * 0.5) * 0.25,
         0.04,
       );
       glowRef.current.position.y = THREE.MathUtils.lerp(
         glowRef.current.position.y,
-        -scrollProgress * 0.65 + (reducedMotion ? 0 : Math.cos(t * 0.4) * 0.18),
+        -scrollProgress * 0.65 + Math.cos(t * 0.4) * 0.18,
         0.04,
       );
     }
@@ -120,7 +158,7 @@ function NetworkScene({
       <pointLight position={[-4, -2, 3]} intensity={18} color="#63d6e8" distance={10} />
       <pointLight position={[4, 2, 4]} intensity={14} color="#3a6eff" distance={12} />
 
-      <PerspectiveCamera makeDefault position={[0, 0, compact ? 8.1 : 7.4]} fov={compact ? 40 : 36} />
+      <PerspectiveCamera makeDefault position={[0, 0, tier !== "high" ? 8.1 : 7.4]} fov={tier !== "high" ? 40 : 36} />
 
       <mesh ref={glowRef} position={[0, 0, -3.2]}>
         <sphereGeometry args={[2.2, 32, 32]} />
@@ -128,7 +166,7 @@ function NetworkScene({
       </mesh>
 
       <mesh ref={ringRef} rotation={[1.06, 0.26, 0]} position={[0.15, 0.05, -0.6]}>
-        <torusGeometry args={[3.15, 0.024, 18, 160]} />
+        <torusGeometry args={[3.15, 0.024, geometry.torusRadial, geometry.torusTubular]} />
         <meshStandardMaterial color="#d7e6ff" transparent opacity={0.55} metalness={0.5} roughness={0.22} />
       </mesh>
 
@@ -149,11 +187,11 @@ function NetworkScene({
             key={`${node.color}-${index}`}
             speed={reducedMotion ? 0 : 1.4 + index * 0.08}
             rotationIntensity={reducedMotion ? 0 : 0.12}
-            floatIntensity={reducedMotion ? 0 : compact ? 0.28 : 0.4}
+            floatIntensity={reducedMotion ? 0 : tier === "high" ? 0.4 : 0.28}
           >
             <group position={node.position}>
               <mesh>
-                <sphereGeometry args={[node.scale, 48, 48]} />
+                <sphereGeometry args={[node.scale, geometry.node, geometry.node]} />
                 <meshPhysicalMaterial
                   color={node.color}
                   roughness={0.18}
@@ -163,7 +201,7 @@ function NetworkScene({
                 />
               </mesh>
               <mesh scale={1.9}>
-                <sphereGeometry args={[node.scale, 24, 24]} />
+                <sphereGeometry args={[node.scale, geometry.glow, geometry.glow]} />
                 <meshBasicMaterial color={node.color} transparent opacity={0.12} />
               </mesh>
             </group>
@@ -175,26 +213,49 @@ function NetworkScene({
 }
 
 export function GraphCanvas() {
+  const containerRef = useRef<HTMLDivElement>(null);
   const [reducedMotion, setReducedMotion] = useState(false);
-  const [compact, setCompact] = useState(false);
+  const [tier, setTier] = useState<Tier>("high");
   const [scrollProgress, setScrollProgress] = useState(0);
+  const [inView, setInView] = useState(true);
+  const [tabVisible, setTabVisible] = useState(true);
 
   useEffect(() => {
     const motionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
-    const compactQuery = window.matchMedia("(max-width: 760px)");
+    const midQuery = window.matchMedia("(max-width: 760px)");
+    const lowQuery = window.matchMedia("(max-width: 480px)");
 
     const update = () => {
       setReducedMotion(motionQuery.matches);
-      setCompact(compactQuery.matches);
+      setTier(lowQuery.matches ? "low" : midQuery.matches ? "mid" : "high");
     };
 
     update();
     motionQuery.addEventListener("change", update);
-    compactQuery.addEventListener("change", update);
+    midQuery.addEventListener("change", update);
+    lowQuery.addEventListener("change", update);
 
     return () => {
       motionQuery.removeEventListener("change", update);
-      compactQuery.removeEventListener("change", update);
+      midQuery.removeEventListener("change", update);
+      lowQuery.removeEventListener("change", update);
+    };
+  }, []);
+
+  // Pause rendering entirely when the hero is scrolled out of view or the tab is hidden.
+  useEffect(() => {
+    const node = containerRef.current;
+    if (!node) return;
+
+    const observer = new IntersectionObserver(([entry]) => setInView(entry.isIntersecting), { threshold: 0.05 });
+    observer.observe(node);
+
+    const onVisibility = () => setTabVisible(document.visibilityState === "visible");
+    document.addEventListener("visibilitychange", onVisibility);
+
+    return () => {
+      observer.disconnect();
+      document.removeEventListener("visibilitychange", onVisibility);
     };
   }, []);
 
@@ -224,9 +285,18 @@ export function GraphCanvas() {
     };
   }, []);
 
+  const active = inView && tabVisible;
+  const frameloop = !active ? "never" : reducedMotion ? "demand" : "always";
+
   return (
-    <Canvas dpr={compact ? [1, 1.2] : [1, 1.6]} gl={{ antialias: true, alpha: true }} className="graph-canvas">
-      <NetworkScene reducedMotion={reducedMotion} compact={compact} scrollProgress={scrollProgress} />
-    </Canvas>
+    <div ref={containerRef} className="graph-canvas">
+      <Canvas
+        dpr={tier === "high" ? [1, 1.6] : [1, 1.2]}
+        gl={{ antialias: tier === "high", alpha: true }}
+        frameloop={frameloop}
+      >
+        <NetworkScene reducedMotion={reducedMotion} tier={tier} scrollProgress={scrollProgress} />
+      </Canvas>
+    </div>
   );
 }
