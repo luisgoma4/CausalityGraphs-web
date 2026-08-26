@@ -12,6 +12,31 @@ export type DetailedTechnique = { title: string; description: string; bullets: s
 export type TeamMember = { name: string; role: string; focus: string };
 export type ContactDetail = { label: string; value: string };
 
+export type AcademyMethodStatus = "disponible" | "en-preparacion";
+export type AcademyMethodBlock = { kind: "paragraph" | "code"; text: string };
+export type AcademyMethodComplexity = "low" | "medium" | "high";
+export type AcademyRobustnessLevel = "success" | "warning" | "danger";
+/**
+ * Comparison data shown in the comparison table (S-07). Only methods with
+ * `status: "disponible"` carry this — methods still in progress omit it and
+ * are excluded from the table.
+ */
+export type AcademyMethodComparison = {
+  assumptions: string[];
+  complexity: AcademyMethodComplexity;
+  complexityLabel: string;
+  robustnessLevel: AcademyRobustnessLevel;
+  robustnessLabel: string;
+};
+export type AcademyMethod = {
+  id: string;
+  name: string;
+  status: AcademyMethodStatus;
+  summary: string;
+  body: AcademyMethodBlock[];
+  comparison?: AcademyMethodComparison;
+};
+
 /**
  * Every user-facing string on the site, grouped by page/section so a
  * translator or copy editor can review one page at a time. `es.ts` and
@@ -24,10 +49,39 @@ export type SiteContent = {
   nav: NavItem[];
   navMenu: { openLabel: string; closeLabel: string };
   languageSwitcher: { es: string; en: string };
+  themeToggle: {
+    switchToDarkLabel: string;
+    switchToLightLabel: string;
+  };
+  a11y: {
+    skipToContent: string;
+    graphLabel: string;
+    graphUnavailable: string;
+  };
   footer: {
     tagline: string;
   };
-  hero3d: { caption: string };
+
+  academy: {
+    seo: Seo;
+    eyebrow: string;
+    title: string;
+    intro: string;
+    tocHeading: string;
+    tocMobileButtonLabel: string;
+    tocMobileTitle: string;
+    tocMobileCloseLabel: string;
+    comingSoonBadge: string;
+    methods: AcademyMethod[];
+    comparisonTable: {
+      heading: string;
+      caption: string;
+      methodHeader: string;
+      assumptionsHeader: string;
+      complexityHeader: string;
+      robustnessHeader: string;
+    };
+  };
 
   home: {
     seo: Seo;

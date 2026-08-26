@@ -1,27 +1,30 @@
 "use client";
 
+import { useState } from "react";
 import dynamic from "next/dynamic";
 import { GraphErrorBoundary } from "@/components/graph-error-boundary";
+import { GraphFallback } from "@/components/graph-fallback";
 
 const GraphCanvas = dynamic(() => import("./graph-canvas").then((mod) => mod.GraphCanvas), {
   ssr: false,
-  loading: () => <div className="graph-fallback" aria-hidden="true" />,
+  loading: () => <GraphFallback />,
 });
 
-export function GraphHero({ caption }: { caption: string }) {
+export function GraphHero({ label, unavailableMessage }: { label: string; unavailableMessage: string }) {
+  const [announced, setAnnounced] = useState(false);
+
   return (
-    <div className="graph-frame graph-background">
-      <div className="graph-halo graph-halo-a" aria-hidden="true" />
-      <div className="graph-halo graph-halo-b" aria-hidden="true" />
+    <div className="graph-frame graph-background" role="img" aria-label={label}>
       <div className="graph-grid" aria-hidden="true" />
-      <GraphErrorBoundary fallback={<div className="graph-fallback" aria-hidden="true" />}>
+      <GraphErrorBoundary
+        fallback={<GraphFallback />}
+        onError={() => setAnnounced(true)}
+      >
         <GraphCanvas />
       </GraphErrorBoundary>
-      <div className="graph-overlay" aria-hidden="true" />
-      <div className="graph-caption">
-        <span className="signal" aria-hidden="true" />
-        {caption}
-      </div>
+      <p className="sr-only" aria-live="polite">
+        {announced ? unavailableMessage : ""}
+      </p>
     </div>
   );
 }

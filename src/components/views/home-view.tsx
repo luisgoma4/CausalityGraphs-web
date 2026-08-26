@@ -10,8 +10,8 @@ export function HomeView({ content, contactHref, techniquesHref }: {
   const { home } = content;
 
   return (
-    <div className="page-shell home-shell">
-      <GraphHero caption={content.hero3d.caption} />
+    <div id="main-content" tabIndex={-1} className="page-shell home-shell">
+      <GraphHero label={content.a11y.graphLabel} unavailableMessage={content.a11y.graphUnavailable} />
       <div className="page-content">
         <section className="home-hero">
           <div className="container hero-grid hero-grid-single">
@@ -36,7 +36,7 @@ export function HomeView({ content, contactHref, techniquesHref }: {
               </div>
               <div className="metric-grid">
                 {home.metrics.map((metric) => (
-                  <article key={metric.value} className="metric-card card-sheen">
+                  <article key={metric.value} className="metric-card">
                     <h2>{metric.value}</h2>
                     <p>{metric.label}</p>
                   </article>
@@ -47,7 +47,7 @@ export function HomeView({ content, contactHref, techniquesHref }: {
         </section>
 
         <section className="container section-stack">
-          <section className="trust-panel card-sheen">
+          <section className="trust-panel">
             <p className="eyebrow">{home.trust.eyebrow}</p>
             <div className="split-heading">
               <h2>{home.trust.heading}</h2>
@@ -62,7 +62,7 @@ export function HomeView({ content, contactHref, techniquesHref }: {
             </div>
             <div className="card-grid">
               {home.services.cards.map((card) => (
-                <article key={card.title} className="glass-card card-sheen">
+                <article key={card.title} className="glass-card">
                   <h3>{card.title}</h3>
                   <p>{card.description}</p>
                 </article>
@@ -108,7 +108,7 @@ export function HomeView({ content, contactHref, techniquesHref }: {
             </div>
             <div className="case-stack">
               {home.work.cases.map((item) => (
-                <article key={item.title} className="case-card card-sheen">
+                <article key={item.title} className="case-card">
                   <div className="case-header">
                     <h3>{item.title}</h3>
                     <span>{home.work.caseLabel}</span>
@@ -153,7 +153,7 @@ export function HomeView({ content, contactHref, techniquesHref }: {
             </div>
           </section>
 
-          <section className="cta-panel card-sheen">
+          <section className="cta-panel">
             <div>
               <p className="eyebrow">{home.cta.eyebrow}</p>
               <h2>{home.cta.heading}</h2>

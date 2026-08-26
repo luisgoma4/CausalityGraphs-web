@@ -2,7 +2,7 @@ import { es } from "./es";
 import { en } from "./en";
 import type { Locale, SiteContent } from "./types";
 
-export type { Locale, SiteContent } from "./types";
+export type { Locale, SiteContent, AcademyMethod } from "./types";
 
 const content: Record<Locale, SiteContent> = { es, en };
 

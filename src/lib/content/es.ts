@@ -16,16 +16,176 @@ export const es: SiteContent = {
     { href: "/", label: "Inicio" },
     { href: "/works", label: "Proyectos" },
     { href: "/techniques", label: "Técnicas" },
+    { href: "/academia", label: "Academia" },
     { href: "/about", label: "Sobre nosotros" },
     { href: "/team", label: "Equipo" },
     { href: "/contact", label: "Contacto" },
   ],
   navMenu: { openLabel: "Menú", closeLabel: "Cerrar" },
   languageSwitcher: { es: "Español", en: "English" },
+  themeToggle: {
+    switchToDarkLabel: "Cambiar a modo oscuro",
+    switchToLightLabel: "Cambiar a modo claro",
+  },
+  a11y: {
+    skipToContent: "Saltar al contenido principal",
+    graphLabel: "Grafo causal animado que ilustra variables de tratamiento, confusores y resultado",
+    graphUnavailable: "Visualización interactiva no disponible; se muestra una versión estática.",
+  },
   footer: {
     tagline: "Consultoría científica para evidencia farmacológica cuando las condiciones de estudio ideales no están disponibles.",
   },
-  hero3d: { caption: "Desplázate para moverte por el campo causal." },
+
+  academy: {
+    seo: {
+      title: "Academia — Causality Graphs",
+      description:
+        "Glosario técnico de los métodos de descubrimiento causal e inferencia causal que usa la consultora: PC, GES, LiNGAM y más.",
+    },
+    eyebrow: "Glosario de métodos",
+    title: "Academia: los métodos de descubrimiento causal detrás del trabajo.",
+    intro:
+      "Una referencia técnica breve para responsables de bioestadística y equipos clínicos: qué hace cada algoritmo, qué supuestos exige y cuándo tiene sentido usarlo.",
+    tocHeading: "Índice de métodos",
+    tocMobileButtonLabel: "Índice",
+    tocMobileTitle: "Índice de métodos",
+    tocMobileCloseLabel: "Cerrar",
+    comingSoonBadge: "En preparación",
+    comparisonTable: {
+      heading: "Comparativa de métodos disponibles",
+      caption: "Supuestos, complejidad y robustez de los métodos de descubrimiento causal disponibles.",
+      methodHeader: "Método",
+      assumptionsHeader: "Supuestos",
+      complexityHeader: "Complejidad",
+      robustnessHeader: "Robustez",
+    },
+    methods: [
+      {
+        id: "pc",
+        name: "PC (Peter-Clark)",
+        status: "disponible",
+        summary:
+          "Algoritmo de descubrimiento causal basado en tests de independencia condicional que reconstruye la estructura de un grafo a partir de datos observacionales.",
+        body: [
+          {
+            kind: "paragraph",
+            text: "El algoritmo PC parte de un grafo completo no dirigido y elimina progresivamente las aristas entre pares de variables que resultan condicionalmente independientes dado algún subconjunto de las demás variables. Cada arista eliminada representa la ausencia de una relación causal directa detectable con los datos disponibles. El resultado es un grafo esqueleto sobre el que se orientan después las aristas restantes aplicando reglas locales (por ejemplo, la identificación de estructuras en V o colisionadores) hasta donde la evidencia lo permite.",
+          },
+          {
+            kind: "paragraph",
+            text: "El resultado no es un DAG único sino un CPDAG (grafo parcialmente dirigido de una clase de equivalencia de Markov): un conjunto de aristas dirigidas donde la dirección causal es identificable sin ambigüedad, y aristas no dirigidas donde varias orientaciones son igualmente compatibles con los datos observados. PC no fuerza una dirección donde los datos no la determinan.",
+          },
+          {
+            kind: "code",
+            text: "X ⊥⊥ Y | Z   →   eliminar arista X—Y del esqueleto",
+          },
+          {
+            kind: "paragraph",
+            text: "Los supuestos clave son fidelidad (faithfulness) —las independencias observadas en los datos reflejan la estructura del grafo y no cancelaciones casuales de parámetros—, suficiencia causal —no hay confusores no medidos entre las variables incluidas— y tests de independencia condicional fiables, que en la práctica requieren tamaños muestrales razonables cuando el número de variables crece.",
+          },
+          {
+            kind: "paragraph",
+            text: "En consultoría se usa como primer paso exploratorio cuando el equipo tiene múltiples variables candidatas y quiere una hipótesis estructural de partida, antes de refinarla con conocimiento de dominio.",
+          },
+        ],
+        comparison: {
+          assumptions: ["Suficiencia causal (sin confusores no medidos)", "Fidelidad (faithfulness)", "Aciclicidad"],
+          complexity: "medium",
+          complexityLabel: "Media",
+          robustnessLevel: "warning",
+          robustnessLabel: "Sensible a errores de test en grafos densos o alta dimensión",
+        },
+      },
+      {
+        id: "ges",
+        name: "GES (Greedy Equivalence Search)",
+        status: "disponible",
+        summary:
+          "Búsqueda voraz sobre el espacio de clases de equivalencia de Markov que optimiza directamente un criterio de bondad de ajuste penalizado.",
+        body: [
+          {
+            kind: "paragraph",
+            text: "GES explora el espacio de CPDAGs en dos fases. En la fase de avance añade aristas una a una, aceptando en cada paso el cambio que más mejora una puntuación penalizada (habitualmente BIC), hasta que ninguna adición mejora la puntuación. En la fase de retroceso elimina aristas siguiendo la misma lógica voraz, refinando el resultado de la primera fase.",
+          },
+          {
+            kind: "paragraph",
+            text: "A diferencia de PC, que decide arista a arista mediante tests de independencia, GES evalúa la calidad global de cada estructura candidata con una puntuación estadística. Esto tiende a ser más robusto frente a errores acumulados de tests individuales cuando el modelo subyacente se ajusta razonablemente bien al criterio de puntuación elegido.",
+          },
+          {
+            kind: "paragraph",
+            text: "Bajo los supuestos habituales (fidelidad, suficiencia causal y una familia de modelos donde la puntuación es consistente), GES converge asintóticamente a la clase de equivalencia de Markov correcta. El resultado, igual que en PC, es un CPDAG: la dirección de algunas aristas puede quedar sin determinar.",
+          },
+          {
+            kind: "paragraph",
+            text: "Se usa cuando interesa una puntuación global interpretable (BIC) y el conjunto de variables es de tamaño moderado a grande, donde encadenar muchos tests de independencia condicional —como hace PC— sería más frágil.",
+          },
+        ],
+        comparison: {
+          assumptions: ["Suficiencia causal", "Fidelidad", "Score descomponible (p.ej. BIC)"],
+          complexity: "high",
+          complexityLabel: "Alta",
+          robustnessLevel: "success",
+          robustnessLabel: "Más estable que PC en muestras finitas, pero computacionalmente costoso",
+        },
+      },
+      {
+        id: "lingam",
+        name: "LiNGAM (Linear Non-Gaussian Acyclic Model)",
+        status: "disponible",
+        summary:
+          "Modelo lineal acíclico no gaussiano que identifica la dirección causal explotando la asimetría estadística de los residuos, no solo la estructura de independencias.",
+        body: [
+          {
+            kind: "paragraph",
+            text: "LiNGAM asume que cada variable es una combinación lineal de sus causas directas más un término de ruido, y que ese ruido no es gaussiano. Esa no-gaussianidad es la pieza clave: en un modelo lineal gaussiano, causa y efecto son estadísticamente indistinguibles por simetría, pero con residuos no gaussianos la dirección causal correcta deja una firma estadística asimétrica detectable, típicamente mediante análisis de componentes independientes (ICA).",
+          },
+          {
+            kind: "paragraph",
+            text: "A diferencia de PC y GES, que se detienen en una clase de equivalencia, LiNGAM puede identificar un DAG completamente dirigido a partir de datos puramente observacionales, sin necesitar restricciones adicionales del investigador para resolver la orientación de las aristas.",
+          },
+          {
+            kind: "paragraph",
+            text: "El precio de esa identificabilidad más fuerte es un supuesto más restrictivo: linealidad de las relaciones y no gaussianidad de todos los términos de ruido salvo, como mucho, uno. Cuando estos supuestos no se cumplen razonablemente, la dirección estimada puede ser incorrecta con confianza aparente.",
+          },
+          {
+            kind: "paragraph",
+            text: "Es útil cuando hay evidencia de que las relaciones son aproximadamente lineales y las distribuciones de las variables (o de los residuos tras un ajuste preliminar) se alejan claramente de la normalidad, algo frecuente en datos biológicos con colas pesadas o asimetría.",
+          },
+        ],
+        comparison: {
+          assumptions: ["Linealidad", "Ruido no gaussiano", "Suficiencia causal", "Aciclicidad"],
+          complexity: "low",
+          complexityLabel: "Baja",
+          robustnessLevel: "warning",
+          robustnessLabel: "Identificación fuerte si se cumple no-gaussianidad; falla si el ruido es gaussiano",
+        },
+      },
+      {
+        id: "fci",
+        name: "FCI (Fast Causal Inference)",
+        status: "en-preparacion",
+        summary:
+          "Extensión de PC que admite confusores latentes no medidos, sin exigir el supuesto de suficiencia causal.",
+        body: [],
+      },
+      {
+        id: "do-calculus",
+        name: "Intervención y do-calculus",
+        status: "en-preparacion",
+        summary:
+          "Cálculo formal para estimar el efecto de intervenciones hipotéticas a partir de un grafo causal y datos puramente observacionales.",
+        body: [],
+      },
+      {
+        id: "mediacion",
+        name: "Mediación causal",
+        status: "en-preparacion",
+        summary:
+          "Descomposición de un efecto total en vías directas e indirectas a través de variables mediadoras.",
+        body: [],
+      },
+    ],
+  },
 
   home: {
     seo: {

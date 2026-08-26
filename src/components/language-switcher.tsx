@@ -12,7 +12,13 @@ function alternatePath(pathname: string, targetLocale: "es" | "en") {
   return esPath === "/" ? "/en" : `/en${esPath}`;
 }
 
-export function LanguageSwitcher({ content }: { content: SiteContent }) {
+export function LanguageSwitcher({
+  content,
+  onNavigateAction,
+}: {
+  content: SiteContent;
+  onNavigateAction?: () => void;
+}) {
   const pathname = usePathname();
 
   return (
@@ -21,6 +27,7 @@ export function LanguageSwitcher({ content }: { content: SiteContent }) {
         href={alternatePath(pathname, "es")}
         aria-current={content.locale === "es" ? "true" : undefined}
         className={content.locale === "es" ? "language-switcher-active" : undefined}
+        onClick={onNavigateAction}
       >
         {content.languageSwitcher.es}
       </Link>
@@ -29,6 +36,7 @@ export function LanguageSwitcher({ content }: { content: SiteContent }) {
         href={alternatePath(pathname, "en")}
         aria-current={content.locale === "en" ? "true" : undefined}
         className={content.locale === "en" ? "language-switcher-active" : undefined}
+        onClick={onNavigateAction}
       >
         {content.languageSwitcher.en}
       </Link>

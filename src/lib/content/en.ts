@@ -16,16 +16,175 @@ export const en: SiteContent = {
     { href: "/en", label: "Home" },
     { href: "/en/works", label: "Works" },
     { href: "/en/techniques", label: "Techniques" },
+    { href: "/en/academy", label: "Academy" },
     { href: "/en/about", label: "About Us" },
     { href: "/en/team", label: "Team" },
     { href: "/en/contact", label: "Contact" },
   ],
   navMenu: { openLabel: "Menu", closeLabel: "Close" },
   languageSwitcher: { es: "Español", en: "English" },
+  themeToggle: {
+    switchToDarkLabel: "Switch to dark mode",
+    switchToLightLabel: "Switch to light mode",
+  },
+  a11y: {
+    skipToContent: "Skip to main content",
+    graphLabel: "Animated causal graph illustrating treatment, confounder, and outcome variables",
+    graphUnavailable: "Interactive visualization unavailable; showing a static version instead.",
+  },
   footer: {
     tagline: "Scientific consulting for pharmacological evidence where ideal study conditions are not available.",
   },
-  hero3d: { caption: "Scroll to move through the causal field." },
+
+  academy: {
+    seo: {
+      title: "Academy — Causality Graphs",
+      description:
+        "A technical glossary of the causal discovery and causal inference methods the consultancy uses: PC, GES, LiNGAM and more.",
+    },
+    eyebrow: "Method glossary",
+    title: "Academy: the causal discovery methods behind the work.",
+    intro:
+      "A short technical reference for biostatistics leads and clinical teams: what each algorithm does, what it assumes, and when it makes sense to use it.",
+    tocHeading: "Method index",
+    tocMobileButtonLabel: "Index",
+    tocMobileTitle: "Method index",
+    tocMobileCloseLabel: "Close",
+    comingSoonBadge: "In progress",
+    comparisonTable: {
+      heading: "Comparison of available methods",
+      caption: "Assumptions, complexity, and robustness of the available causal discovery methods.",
+      methodHeader: "Method",
+      assumptionsHeader: "Assumptions",
+      complexityHeader: "Complexity",
+      robustnessHeader: "Robustness",
+    },
+    methods: [
+      {
+        id: "pc",
+        name: "PC (Peter-Clark)",
+        status: "disponible",
+        summary:
+          "A causal discovery algorithm based on conditional independence tests that reconstructs a graph's structure from observational data.",
+        body: [
+          {
+            kind: "paragraph",
+            text: "The PC algorithm starts from a complete undirected graph and progressively removes edges between pairs of variables that turn out to be conditionally independent given some subset of the other variables. Each removed edge represents the absence of a direct causal relationship detectable in the available data. The result is a skeleton graph, whose remaining edges are then oriented using local rules (for example, identifying V-structures, or colliders) as far as the evidence allows.",
+          },
+          {
+            kind: "paragraph",
+            text: "The output is not a single DAG but a CPDAG (completed partially directed acyclic graph, representing a Markov equivalence class): a set of directed edges where the causal direction is unambiguously identifiable, and undirected edges where several orientations are equally compatible with the observed data. PC does not force a direction where the data do not determine one.",
+          },
+          {
+            kind: "code",
+            text: "X ⊥⊥ Y | Z   →   remove edge X—Y from the skeleton",
+          },
+          {
+            kind: "paragraph",
+            text: "The key assumptions are faithfulness — the independencies observed in the data reflect the graph's structure rather than accidental cancellation of parameters — causal sufficiency — no unmeasured confounders among the included variables — and reliable conditional independence tests, which in practice require reasonable sample sizes as the number of variables grows.",
+          },
+          {
+            kind: "paragraph",
+            text: "In consulting work it is used as a first exploratory step when a team has multiple candidate variables and wants a starting structural hypothesis, before refining it with domain knowledge.",
+          },
+        ],
+        comparison: {
+          assumptions: ["Causal sufficiency (no unmeasured confounders)", "Faithfulness", "Acyclicity"],
+          complexity: "medium",
+          complexityLabel: "Medium",
+          robustnessLevel: "warning",
+          robustnessLabel: "Sensitive to test errors in dense or high-dimensional graphs",
+        },
+      },
+      {
+        id: "ges",
+        name: "GES (Greedy Equivalence Search)",
+        status: "disponible",
+        summary:
+          "A greedy search over the space of Markov equivalence classes that directly optimizes a penalized goodness-of-fit score.",
+        body: [
+          {
+            kind: "paragraph",
+            text: "GES explores the space of CPDAGs in two phases. In the forward phase it adds edges one at a time, accepting at each step the change that most improves a penalized score (typically BIC), until no addition improves the score further. In the backward phase it removes edges under the same greedy logic, refining the result of the forward phase.",
+          },
+          {
+            kind: "paragraph",
+            text: "Unlike PC, which decides edge by edge via independence tests, GES scores the overall quality of each candidate structure with a single statistical criterion. This tends to be more robust to accumulated errors from individual tests when the underlying model reasonably fits the chosen scoring criterion.",
+          },
+          {
+            kind: "paragraph",
+            text: "Under the usual assumptions (faithfulness, causal sufficiency, and a model family for which the score is consistent), GES converges asymptotically to the correct Markov equivalence class. The output, as with PC, is a CPDAG: the direction of some edges may remain undetermined.",
+          },
+          {
+            kind: "paragraph",
+            text: "It is used when an interpretable global score (BIC) is desirable and the variable set is moderate to large, where chaining many conditional independence tests — as PC does — would be more fragile.",
+          },
+        ],
+        comparison: {
+          assumptions: ["Causal sufficiency", "Faithfulness", "Decomposable score (e.g. BIC)"],
+          complexity: "high",
+          complexityLabel: "High",
+          robustnessLevel: "success",
+          robustnessLabel: "More stable than PC in finite samples, but computationally costly",
+        },
+      },
+      {
+        id: "lingam",
+        name: "LiNGAM (Linear Non-Gaussian Acyclic Model)",
+        status: "disponible",
+        summary:
+          "A linear non-Gaussian acyclic model that identifies causal direction by exploiting the statistical asymmetry of residuals, not just independence structure.",
+        body: [
+          {
+            kind: "paragraph",
+            text: "LiNGAM assumes each variable is a linear combination of its direct causes plus a noise term, and that this noise is non-Gaussian. That non-Gaussianity is the key ingredient: in a linear Gaussian model, cause and effect are statistically indistinguishable by symmetry, but with non-Gaussian residuals the correct causal direction leaves a detectable asymmetric statistical signature, typically recovered via independent component analysis (ICA).",
+          },
+          {
+            kind: "paragraph",
+            text: "Unlike PC and GES, which stop at an equivalence class, LiNGAM can identify a fully directed DAG from purely observational data, without needing additional researcher-imposed constraints to resolve edge orientation.",
+          },
+          {
+            kind: "paragraph",
+            text: "The cost of that stronger identifiability is a more restrictive assumption: linearity of the relationships and non-Gaussianity of all but at most one of the noise terms. When these assumptions do not hold reasonably well, the estimated direction can be wrong with apparent confidence.",
+          },
+          {
+            kind: "paragraph",
+            text: "It is useful when relationships are approximately linear and the distributions of the variables (or of residuals after a preliminary fit) clearly depart from normality — common in biological data with heavy tails or skew.",
+          },
+        ],
+        comparison: {
+          assumptions: ["Linearity", "Non-Gaussian noise", "Causal sufficiency", "Acyclicity"],
+          complexity: "low",
+          complexityLabel: "Low",
+          robustnessLevel: "warning",
+          robustnessLabel: "Strongly identifiable when non-Gaussianity holds; fails if the noise is Gaussian",
+        },
+      },
+      {
+        id: "fci",
+        name: "FCI (Fast Causal Inference)",
+        status: "en-preparacion",
+        summary:
+          "An extension of PC that allows for latent, unmeasured confounders, without requiring the causal sufficiency assumption.",
+        body: [],
+      },
+      {
+        id: "do-calculus",
+        name: "Intervention and do-calculus",
+        status: "en-preparacion",
+        summary:
+          "A formal calculus for estimating the effect of hypothetical interventions from a causal graph and purely observational data.",
+        body: [],
+      },
+      {
+        id: "mediacion",
+        name: "Causal mediation",
+        status: "en-preparacion",
+        summary: "Decomposing a total effect into direct and indirect pathways through mediating variables.",
+        body: [],
+      },
+    ],
+  },
 
   home: {
     seo: {

@@ -15,7 +15,7 @@ export function SiteShell({
   intro: string;
 }) {
   return (
-    <div className="page-shell">
+    <div id="main-content" tabIndex={-1} className="page-shell">
       <section className="hero-band">
         <div className="container">
           <p className="eyebrow">{eyebrow}</p>

@@ -45,3 +45,6 @@ AGENTS.md
 CLAUDE.md
 AGENT.md
 CONTENT_PLAN.md
+.claude/settings.local.json
+.claude.backup.*
+__pycache__/

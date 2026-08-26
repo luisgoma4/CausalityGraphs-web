@@ -8,10 +8,10 @@ export function TechniquesView({ content }: { content: SiteContent }) {
     <SiteShell content={content} eyebrow={techniques.eyebrow} title={techniques.title} intro={techniques.intro}>
       <section className="technique-list">
         {techniques.items.map((technique, index) => (
-          <article key={technique.title} className="technique-card card-sheen">
+          <article key={technique.title} className="technique-card">
             <div className="technique-index">0{index + 1}</div>
             <div>
-              <h2>{technique.title}</h2>
+              <h3>{technique.title}</h3>
               <p>{technique.description}</p>
             </div>
             <div className="technique-bullets">

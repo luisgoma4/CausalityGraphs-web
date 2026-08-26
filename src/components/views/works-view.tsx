@@ -13,7 +13,7 @@ export function WorksView({ content }: { content: SiteContent }) {
         </div>
         <div className="card-grid">
           {works.cases.map((item) => (
-            <article key={item.title} className="case-card card-sheen">
+            <article key={item.title} className="case-card">
               <div className="case-header">
                 <h3>{item.title}</h3>
                 <span>{works.caseLabel}</span>

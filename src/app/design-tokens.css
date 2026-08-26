@@ -1,0 +1,383 @@
+/**
+ * Design tokens — Causality Graphs
+ * Fuente de verdad: docs/03-design-system.md (léelo antes de tocar este fichero).
+ *
+ * Reglas no negociables (skill `engineering-style`):
+ *  - Color solo en oklch(), consumido por nombre semántico. Nunca hex/rgb/hsl
+ *    ni clases de color crudo de Tailwind fuera de este fichero.
+ *  - Espaciado en escala estricta de 8px: 8 16 24 32 40 48 64 80 96 128.
+ *  - Bordes finos de 1px. Sin gradientes decorativos. Máx. 3 radios / 3 elevaciones.
+ *
+ * Integración: este fichero se @importa desde `globals.css` ANTES de las reglas
+ * globales (`@import "tailwindcss"; @import "./design-tokens.css";`). Sustituye
+ * por completo el bloque `:root` / `@theme inline` de colores, radios y motion
+ * que existía en `globals.css` a fecha 2026-08-25 — no coexisten dos fuentes de
+ * tokens de color. La escala de espaciado usa las claves `--spacing-*` que
+ * Tailwind v4 lee de forma nativa para generar `p-*`, `gap-*`, `m-*`, etc.
+ */
+
+:root {
+  /* ---------------------------------------------------------------------- */
+  /* Paleta cruda — MODO CLARO (valor por defecto de :root)                  */
+  /* ---------------------------------------------------------------------- */
+  --raw-surface: oklch(0.98 0.003 250);
+  --raw-surface-raised: oklch(1 0 0);
+  --raw-surface-sunken: oklch(0.955 0.004 250);
+
+  --raw-text: oklch(0.20 0.02 260);
+  --raw-text-muted: oklch(0.42 0.02 260);
+  --raw-text-inverse: oklch(0.98 0.005 250);
+
+  --raw-border: oklch(0.88 0.006 260);
+  --raw-border-strong: oklch(0.60 0.014 260);
+
+  --raw-primary: oklch(0.38 0.13 264);
+  --raw-primary-hover: oklch(0.32 0.14 264);
+  --raw-primary-fg: oklch(0.98 0.005 250);
+  --raw-focus-ring: oklch(0.55 0.16 264);
+
+  --raw-accent: oklch(0.62 0.16 55);
+  --raw-accent-fg: oklch(0.16 0.02 60);
+
+  --raw-success: oklch(0.40 0.12 150);
+  --raw-success-bg: oklch(0.94 0.035 150);
+  --raw-warning: oklch(0.50 0.15 75);
+  --raw-warning-bg: oklch(0.95 0.045 80);
+  --raw-danger: oklch(0.46 0.19 25);
+  --raw-danger-bg: oklch(0.95 0.03 25);
+
+  --raw-shadow-overlay: 0 8px 24px oklch(0.20 0.02 260 / 0.16);
+
+  /* ---------------------------------------------------------------------- */
+  /* Radios — máx. 3                                                        */
+  /* ---------------------------------------------------------------------- */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-full: 9999px; /* uso puntual: avatares, no forma parte de la escala de componentes */
+
+  /* ---------------------------------------------------------------------- */
+  /* Movimiento                                                              */
+  /* ---------------------------------------------------------------------- */
+  --duration-fast: 150ms;
+  --duration-base: 250ms;
+  --duration-slow: 400ms;
+  --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-emphasized: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Modo oscuro — mismos nombres, valores distintos. Se activa por preferencia
+   del sistema o por override manual vía [data-theme]. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --raw-surface: oklch(0.17 0.014 260);
+    --raw-surface-raised: oklch(0.215 0.016 260);
+    --raw-surface-sunken: oklch(0.135 0.013 260);
+
+    --raw-text: oklch(0.96 0.006 250);
+    --raw-text-muted: oklch(0.72 0.02 260);
+    --raw-text-inverse: oklch(0.17 0.014 260);
+
+    --raw-border: oklch(0.32 0.02 260);
+    --raw-border-strong: oklch(0.50 0.02 260);
+
+    --raw-primary: oklch(0.74 0.135 264);
+    --raw-primary-hover: oklch(0.80 0.12 264);
+    --raw-primary-fg: oklch(0.14 0.02 264);
+    --raw-focus-ring: oklch(0.78 0.14 264);
+
+    --raw-accent: oklch(0.78 0.15 60);
+    --raw-accent-fg: oklch(0.15 0.02 60);
+
+    --raw-success: oklch(0.74 0.15 150);
+    --raw-success-bg: oklch(0.25 0.05 150);
+    --raw-warning: oklch(0.80 0.15 80);
+    --raw-warning-bg: oklch(0.27 0.05 80);
+    --raw-danger: oklch(0.74 0.17 25);
+    --raw-danger-bg: oklch(0.27 0.05 25);
+
+    --raw-shadow-overlay: 0 8px 24px oklch(0 0 0 / 0.48);
+  }
+}
+
+/* Override manual (toggle de tema independiente del sistema). Debe ganar
+   siempre sobre prefers-color-scheme — de ahí el selector de mayor especificidad
+   combinado con el orden de aparición tras el bloque @media. */
+[data-theme="dark"] {
+  --raw-surface: oklch(0.17 0.014 260);
+  --raw-surface-raised: oklch(0.215 0.016 260);
+  --raw-surface-sunken: oklch(0.135 0.013 260);
+
+  --raw-text: oklch(0.96 0.006 250);
+  --raw-text-muted: oklch(0.72 0.02 260);
+  --raw-text-inverse: oklch(0.17 0.014 260);
+
+  --raw-border: oklch(0.32 0.02 260);
+  --raw-border-strong: oklch(0.50 0.02 260);
+
+  --raw-primary: oklch(0.74 0.135 264);
+  --raw-primary-hover: oklch(0.80 0.12 264);
+  --raw-primary-fg: oklch(0.14 0.02 264);
+  --raw-focus-ring: oklch(0.78 0.14 264);
+
+  --raw-accent: oklch(0.78 0.15 60);
+  --raw-accent-fg: oklch(0.15 0.02 60);
+
+  --raw-success: oklch(0.74 0.15 150);
+  --raw-success-bg: oklch(0.25 0.05 150);
+  --raw-warning: oklch(0.80 0.15 80);
+  --raw-warning-bg: oklch(0.27 0.05 80);
+  --raw-danger: oklch(0.74 0.17 25);
+  --raw-danger-bg: oklch(0.27 0.05 25);
+
+  --raw-shadow-overlay: 0 8px 24px oklch(0 0 0 / 0.48);
+}
+
+[data-theme="light"] {
+  --raw-surface: oklch(0.98 0.003 250);
+  --raw-surface-raised: oklch(1 0 0);
+  --raw-surface-sunken: oklch(0.955 0.004 250);
+  --raw-text: oklch(0.20 0.02 260);
+  --raw-text-muted: oklch(0.42 0.02 260);
+  --raw-text-inverse: oklch(0.98 0.005 250);
+  --raw-border: oklch(0.88 0.006 260);
+  --raw-border-strong: oklch(0.60 0.014 260);
+  --raw-primary: oklch(0.38 0.13 264);
+  --raw-primary-hover: oklch(0.32 0.14 264);
+  --raw-primary-fg: oklch(0.98 0.005 250);
+  --raw-focus-ring: oklch(0.55 0.16 264);
+  --raw-accent: oklch(0.62 0.16 55);
+  --raw-accent-fg: oklch(0.16 0.02 60);
+  --raw-success: oklch(0.40 0.12 150);
+  --raw-success-bg: oklch(0.94 0.035 150);
+  --raw-warning: oklch(0.50 0.15 75);
+  --raw-warning-bg: oklch(0.95 0.045 80);
+  --raw-danger: oklch(0.46 0.19 25);
+  --raw-danger-bg: oklch(0.95 0.03 25);
+  --raw-shadow-overlay: 0 8px 24px oklch(0.20 0.02 260 / 0.16);
+}
+
+/**
+ * Mapeo semántico a Tailwind v4. `@theme inline` referencia los `--raw-*` de
+ * arriba (que sí cambian con el modo), generando utilidades estables:
+ * bg-surface, text-text, border-border, ring-focus-ring, etc. No genera clases
+ * para --raw-* directamente: esas son privadas de este fichero.
+ */
+@theme inline {
+  /* Color semántico */
+  --color-surface: var(--raw-surface);
+  --color-surface-raised: var(--raw-surface-raised);
+  --color-surface-sunken: var(--raw-surface-sunken);
+
+  --color-text: var(--raw-text);
+  --color-text-muted: var(--raw-text-muted);
+  --color-text-inverse: var(--raw-text-inverse);
+
+  --color-border: var(--raw-border);
+  --color-border-strong: var(--raw-border-strong);
+
+  --color-primary: var(--raw-primary);
+  --color-primary-hover: var(--raw-primary-hover);
+  --color-primary-fg: var(--raw-primary-fg);
+  --color-focus-ring: var(--raw-focus-ring);
+
+  --color-accent: var(--raw-accent);
+  --color-accent-fg: var(--raw-accent-fg);
+
+  --color-success: var(--raw-success);
+  --color-success-bg: var(--raw-success-bg);
+  --color-warning: var(--raw-warning);
+  --color-warning-bg: var(--raw-warning-bg);
+  --color-danger: var(--raw-danger);
+  --color-danger-bg: var(--raw-danger-bg);
+
+  --shadow-overlay: var(--raw-shadow-overlay);
+
+  /* Radios */
+  --radius-sm: var(--radius-sm);
+  --radius-md: var(--radius-md);
+  --radius-lg: var(--radius-lg);
+  --radius-full: var(--radius-full);
+
+  /* Movimiento (expuesto como variables de utilidad para transition-duration/ease) */
+  --duration-fast: var(--duration-fast);
+  --duration-base: var(--duration-base);
+  --duration-slow: var(--duration-slow);
+  --ease-standard: var(--ease-standard);
+  --ease-emphasized: var(--ease-emphasized);
+
+  /* -------------------------------------------------------------------- */
+  /* Espaciado — escala estricta de 8px. Sustituye por completo la escala  */
+  /* numérica por defecto de Tailwind (que incluye 4, 12, 20, 28...): al   */
+  /* redefinir las claves --spacing-* con el valor en px como nombre       */
+  /* literal, utilidades como p-3 o gap-5 (fuera de esta lista) ya no      */
+  /* generan ninguna clase, y p-8/gap-8/m-8 = 8px, p-16 = 16px, etc. — la  */
+  /* clave coincide con el valor en px, sin relación con la escala 0.25rem */
+  /* por defecto de Tailwind. No hay conflicto real que resolver aquí.     */
+  /* -------------------------------------------------------------------- */
+  --spacing-8: 8px;
+  --spacing-16: 16px;
+  --spacing-24: 24px;
+  --spacing-32: 32px;
+  --spacing-40: 40px;
+  --spacing-48: 48px;
+  --spacing-64: 64px;
+  --spacing-80: 80px;
+  --spacing-96: 96px;
+  --spacing-128: 128px;
+
+  /* -------------------------------------------------------------------- */
+  /* Tipografía                                                            */
+  /* -------------------------------------------------------------------- */
+  --font-sans: var(--font-body), "Manrope", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-mono-face), "IBM Plex Mono", "JetBrains Mono", ui-monospace,
+    "SFMono-Regular", Menlo, monospace;
+
+  /* Tamaño / interlineado por paso de escala (ver docs/03-design-system.md §2).
+     Se exponen como pares text-* / leading-* con nombres semánticos, no t-shirt
+     genéricos, para que un implementador no tenga que adivinar el mapeo. */
+  --text-display: 56px;
+  --leading-display: 60px;
+  --text-h1: 39px;
+  --leading-h1: 44px;
+  --text-h2: 31px;
+  --leading-h2: 38px;
+  --text-h3: 25px;
+  --leading-h3: 32px;
+  --text-h4: 20px;
+  --leading-h4: 28px;
+  --text-body: 16px;
+  --leading-body: 26px;
+  --text-body-dense: 15px;
+  --leading-body-dense: 24px;
+  --text-small: 14px;
+  --leading-small: 20px;
+  --text-caption: 12px;
+  --leading-caption: 16px;
+  --text-data-lg: 40px;
+  --leading-data-lg: 44px;
+  --text-data-md: 20px;
+  --leading-data-md: 26px;
+  --text-code: 14px;
+  --leading-code: 22px;
+}
+
+/**
+ * Utilidades de nivel de texto compuestas (tamaño + interlineado + peso +
+ * tracking + familia en una sola clase), porque Tailwind v4 no compone
+ * tracking/weight/family automáticamente a partir de --text-*. Usar estas
+ * clases en vez de combinar text-* / font-* / tracking-* sueltos evita que un
+ * implementador reconstruya la escala a mano y se desvíe de la tabla del
+ * documento de sistema de diseño.
+ */
+@layer components {
+  .type-display {
+    font-family: var(--font-sans);
+    font-size: var(--text-display);
+    line-height: var(--leading-display);
+    font-weight: 700;
+    letter-spacing: -0.025em;
+  }
+  .type-h1 {
+    font-family: var(--font-sans);
+    font-size: var(--text-h1);
+    line-height: var(--leading-h1);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+  .type-h2 {
+    font-family: var(--font-sans);
+    font-size: var(--text-h2);
+    line-height: var(--leading-h2);
+    font-weight: 600;
+    letter-spacing: -0.015em;
+  }
+  .type-h3 {
+    font-family: var(--font-sans);
+    font-size: var(--text-h3);
+    line-height: var(--leading-h3);
+    font-weight: 600;
+    letter-spacing: -0.01em;
+  }
+  .type-h4 {
+    font-family: var(--font-sans);
+    font-size: var(--text-h4);
+    line-height: var(--leading-h4);
+    font-weight: 600;
+    letter-spacing: -0.005em;
+  }
+  .type-body {
+    font-family: var(--font-sans);
+    font-size: var(--text-body);
+    line-height: var(--leading-body);
+    font-weight: 400;
+  }
+  .type-body-dense {
+    font-family: var(--font-sans);
+    font-size: var(--text-body-dense);
+    line-height: var(--leading-body-dense);
+    font-weight: 400;
+  }
+  .type-small {
+    font-family: var(--font-sans);
+    font-size: var(--text-small);
+    line-height: var(--leading-small);
+    font-weight: 400;
+  }
+  .type-caption {
+    font-family: var(--font-mono);
+    font-size: var(--text-caption);
+    line-height: var(--leading-caption);
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+  .type-data-lg {
+    font-family: var(--font-mono);
+    font-size: var(--text-data-lg);
+    line-height: var(--leading-data-lg);
+    font-weight: 700;
+    letter-spacing: -0.015em;
+  }
+  .type-data-md {
+    font-family: var(--font-mono);
+    font-size: var(--text-data-md);
+    line-height: var(--leading-data-md);
+    font-weight: 600;
+  }
+  .type-code {
+    font-family: var(--font-mono);
+    font-size: var(--text-code);
+    line-height: var(--leading-code);
+    font-weight: 400;
+  }
+}
+
+/**
+ * Elevaciones — máx. 3, ver docs/03-design-system.md §5. `elevation-flat` no
+ * necesita clase (es la ausencia de borde/sombra). `shadow-overlay` es la
+ * única sombra del sistema y se reserva a contenido portaled de Radix.
+ */
+@layer components {
+  .elevation-raised {
+    background-color: var(--color-surface-raised);
+    border: 1px solid var(--color-border);
+  }
+  .elevation-overlay {
+    background-color: var(--color-surface-raised);
+    border: 1px solid var(--color-border-strong);
+    box-shadow: var(--shadow-overlay);
+  }
+}
+
+/* prefers-reduced-motion: reduce — obligatorio en todo el sistema (ver §6). */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
