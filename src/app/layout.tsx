@@ -19,8 +19,13 @@ const monoFont = IBM_Plex_Mono({
 
 // Sets data-theme on <html> before hydration to avoid a flash of the wrong
 // color scheme. Mirrors the localStorage-first, system-preference-fallback
-// pattern; see docs/03-design-system.md §4. No UI toggle yet — that's a
-// separate component (out of scope for this task).
+// pattern; see docs/03-design-system.md §4. The applied value is read back
+// by <ThemeToggle> rather than re-derived, keeping one source of truth.
+// Because this runs before React hydrates, it adds a data-theme attribute
+// the server never rendered — hence suppressHydrationWarning on <html>
+// below. The server cannot know the visitor's theme, so the divergence is
+// intentional; the suppression is one level deep and does not hide
+// mismatches in any child.
 const themeInitScript = `(function(){try{var t=localStorage.getItem("theme");if(t!=="light"&&t!=="dark"){t=window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}})();`;
 
 export const metadata: Metadata = {
@@ -40,7 +45,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="es" className={`${bodyFont.variable} ${monoFont.variable}`}>
+    <html
+      lang="es"
+      className={`${bodyFont.variable} ${monoFont.variable}`}
+      suppressHydrationWarning
+    >
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
       </head>
