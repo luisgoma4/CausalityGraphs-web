@@ -24,6 +24,10 @@ type Status = "idle" | "submitting" | "success" | "error";
 
 export function ContactForm() {
   const [status, setStatus] = useState<Status>("idle");
+  // Web3Forms explains its own rejections (unverified address, spam filter,
+  // bad key). Keeping the reason makes a failure diagnosable instead of a
+  // generic "something went wrong".
+  const [reason, setReason] = useState<string | null>(null);
 
   async function handleSubmit(event: SubmitEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -47,9 +51,11 @@ export function ContactForm() {
         setStatus("success");
         form.reset();
       } else {
+        setReason(typeof result.message === "string" ? result.message : null);
         setStatus("error");
       }
-    } catch {
+    } catch (error) {
+      setReason(error instanceof Error ? error.message : null);
       setStatus("error");
     }
   }
@@ -67,7 +73,13 @@ export function ContactForm() {
     <form className="contact-form card-sheen" onSubmit={handleSubmit}>
       <input type="hidden" name="access_key" value={WEB3FORMS_ACCESS_KEY} />
       <input type="hidden" name="subject" value="New inquiry from causalitygraphs.com" />
-      <input type="text" name="botcheck" className="sr-only" tabIndex={-1} autoComplete="off" />
+      {/* Honeypot. Must be display:none, not .sr-only: an sr-only input is still
+          rendered and still in the accessibility tree, so browser autofill and
+          password managers can put a value in it. Any value here makes Web3Forms
+          classify the submission as a bot and drop it — while still answering
+          success: true, so the visitor sees "message sent" and nothing arrives.
+          A checkbox is the shape Web3Forms documents. */}
+      <input type="checkbox" name="botcheck" style={{ display: "none" }} tabIndex={-1} />
 
       <label>
         Name
@@ -107,6 +119,7 @@ export function ContactForm() {
       {status === "error" && (
         <p className="full-span contact-form-error" role="alert">
           Something went wrong sending your message. Please try again or email us directly.
+          {reason ? ` (${reason})` : ""}
         </p>
       )}
     </form>
