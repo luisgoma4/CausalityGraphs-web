@@ -5,6 +5,21 @@ import { useState, type SubmitEvent } from "react";
 const WEB3FORMS_ENDPOINT = "https://api.web3forms.com/submit";
 const WEB3FORMS_ACCESS_KEY = process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY ?? "";
 
+// NEXT_PUBLIC_* is inlined at build time, so an unset value cannot be
+// recovered at runtime: the form ships with access_key="" and Web3Forms
+// rejects every submission with no visible cause. That is exactly how a
+// deploy went out silently broken once. Fail the production build instead
+// of shipping a form that cannot work. Dev is left tolerant so the site
+// still runs without credentials.
+if (process.env.NODE_ENV === "production" && !WEB3FORMS_ACCESS_KEY) {
+  throw new Error(
+    "NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY is not set. The contact form would be " +
+      "built with an empty access key and every submission would fail. Set it " +
+      "in .env.local locally, or as the WEB3FORMS_ACCESS_KEY repository secret " +
+      "for the GitHub Actions build.",
+  );
+}
+
 type Status = "idle" | "submitting" | "success" | "error";
 
 export function ContactForm() {
