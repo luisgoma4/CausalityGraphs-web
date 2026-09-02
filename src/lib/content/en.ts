@@ -372,10 +372,15 @@ export const en: SiteContent = {
       descriptionLabel: "Brief description",
       descriptionPlaceholder: "Describe the study design, key constraints, and the decision you need to support.",
       submitLabel: "Send inquiry",
+      sendingLabel: "Sending...",
+      successEyebrow: "Message sent",
+      successTitle: "Thanks — we'll reply personally within one business day.",
+      errorMessage:
+        "Something went wrong sending your message. Please try again or email us directly.",
     },
     details: [
-      { label: "Email", value: "luis.gomez.epr@proton.me" },
-      { label: "Phone", value: "+34 638 542 664" },
+      { label: "Email", value: "hello@causalitygraphs.com" },
+      { label: "Phone", value: "Luis: +34 638 542 664" },
       { label: "Typical scope", value: "Pharmacological study reports, DAG analysis, dynamic modeling, evidence strategy" },
       { label: "Response style", value: "Confidential, focused, and ready to present" },
     ],

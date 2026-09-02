@@ -373,10 +373,15 @@ export const es: SiteContent = {
       descriptionLabel: "Descripción breve",
       descriptionPlaceholder: "Describe el diseño del estudio, las restricciones clave y la decisión que necesitas respaldar.",
       submitLabel: "Enviar consulta",
+      sendingLabel: "Enviando...",
+      successEyebrow: "Mensaje enviado",
+      successTitle: "Gracias — te responderemos personalmente en un día laborable.",
+      errorMessage:
+        "No hemos podido enviar tu mensaje. Inténtalo de nuevo o escríbenos directamente.",
     },
     details: [
-      { label: "Correo electrónico", value: "luis.gomez.epr@proton.me" },
-      { label: "Teléfono", value: "+34 638 542 664" },
+      { label: "Correo electrónico", value: "hello@causalitygraphs.com" },
+      { label: "Teléfono", value: "Luis: +34 638 542 664" },
       { label: "Alcance habitual", value: "Informes de estudios farmacológicos, análisis DAG, modelado dinámico, estrategia de evidencia" },
       { label: "Estilo de respuesta", value: "Confidencial, enfocado y listo para presentar" },
     ],

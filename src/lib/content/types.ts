@@ -135,6 +135,10 @@ export type SiteContent = {
       descriptionLabel: string;
       descriptionPlaceholder: string;
       submitLabel: string;
+      sendingLabel: string;
+      successEyebrow: string;
+      successTitle: string;
+      errorMessage: string;
     };
     details: ContactDetail[];
   };
