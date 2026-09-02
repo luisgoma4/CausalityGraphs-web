@@ -36,6 +36,28 @@ When adding a page or changing nav/link structure, **both trees must be updated 
 - `src/components/site-shell.tsx` — shared hero band + footer wrapper used by (most) views.
 - `src/components/site-header.tsx` — nav + language switcher + mobile drawer (hand-rolled CSS/state, not a component library — Flowbite was tried and removed; see git history if reintroducing a drawer library).
 
+### Contact form (Web3Forms)
+
+`src/components/contact-form.tsx` is the only interactive form on the site. It is a
+client component that takes `SiteContent` and posts to Web3Forms from the browser —
+there is no backend, and there cannot be one under static export.
+
+Two things about it are load-bearing and easy to break:
+
+- **The access key is inlined at build time** from `NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY`
+  (`.env.local` locally, the `WEB3FORMS_ACCESS_KEY` repo secret in CI, wired into the
+  build step's `env:`). It is not read at runtime. If it is missing the component
+  throws during a production build on purpose, rather than shipping a form that
+  answers "sent" and drops every message — which is exactly what happened once.
+- **The `botcheck` honeypot must stay `display: none`.** Not `.sr-only`: that leaves
+  the input rendered and in the accessibility tree, where browser autofill can put a
+  value in it, and any value makes Web3Forms silently discard the submission while
+  still answering `success: true`.
+
+All of its user-facing strings — labels, placeholders, and the sending/success/error
+states — come from `content.contact.form`, so a missing translation is a type error.
+See `../incidencias.md` (INC-001) for the full history.
+
 ### 3D hero graph
 
 `src/components/graph-hero.tsx` (thin wrapper) + `src/components/graph-canvas.tsx` (the actual DAG/network visual, built on `@react-three/fiber` + `@react-three/drei`/`three`) render the site's signature animated node-link visual. `src/components/graph-error-boundary.tsx` wraps it so a WebGL/Three.js failure degrades gracefully instead of crashing the page. Respect `prefers-reduced-motion` and keep essential text out of canvas-only rendering — see the design brief below.
