@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Manrope, IBM_Plex_Mono } from "next/font/google";
+import { Manrope, IBM_Plex_Mono, Alice } from "next/font/google";
 import "./globals.css";
 import { SiteHeader } from "@/components/site-header";
 import { HtmlLangSetter } from "@/components/html-lang-setter";
@@ -8,6 +8,16 @@ const bodyFont = Manrope({
   subsets: ["latin"],
   variable: "--font-body",
   display: "swap",
+});
+
+// Alice solo existe en un peso (400 regular) y sin cursiva. Los titulares
+// tienen que pedir font-weight 400 explicitamente: cualquier peso mayor haria
+// que el navegador sintetizase una negrita falsa, que en una serif se nota.
+const displayFont = Alice({
+  subsets: ["latin"],
+  variable: "--font-display-face",
+  display: "swap",
+  weight: "400",
 });
 
 const monoFont = IBM_Plex_Mono({
@@ -47,7 +57,7 @@ export default function RootLayout({
   return (
     <html
       lang="es"
-      className={`${bodyFont.variable} ${monoFont.variable}`}
+      className={`${bodyFont.variable} ${displayFont.variable} ${monoFont.variable}`}
       suppressHydrationWarning
     >
       <head>
