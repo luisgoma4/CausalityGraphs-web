@@ -21,11 +21,14 @@ export function AboutView({ content }: { content: SiteContent }) {
           <p className="eyebrow">{about.operating.eyebrow}</p>
           <h2 className="section-title">{about.operating.heading}</h2>
         </div>
-        <div className="principles-panel">
-          {about.principles.map((principle) => (
+        <div className="principles-panel principles-chain">
+          {about.principles.map((principle, index) => (
             <article key={principle} className="principle">
-              <span />
-              <p>{principle}</p>
+              <span aria-hidden="true" />
+              <div className="principle-body">
+                <p className="principle-index">{String(index + 1).padStart(2, "0")}</p>
+                <p>{principle}</p>
+              </div>
             </article>
           ))}
         </div>

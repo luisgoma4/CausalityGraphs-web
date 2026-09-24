@@ -40,10 +40,10 @@ export const en: SiteContent = {
     seo: {
       title: "Academy — Causality Graphs",
       description:
-        "A technical glossary of the causal discovery and causal inference methods the consultancy uses: PC, GES, LiNGAM and more.",
+        "A technical glossary of the causal discovery and causal inference methods we use: PC, GES, LiNGAM and more.",
     },
     eyebrow: "Method glossary",
-    title: "Academy: the causal discovery methods behind the work.",
+    title: "Academy: the causal discovery methods behind our work.",
     intro:
       "A short technical reference for biostatistics leads and clinical teams: what each algorithm does, what it assumes, and when it makes sense to use it.",
     tocHeading: "Method index",
@@ -85,7 +85,7 @@ export const en: SiteContent = {
           },
           {
             kind: "paragraph",
-            text: "In consulting work it is used as a first exploratory step when a team has multiple candidate variables and wants a starting structural hypothesis, before refining it with domain knowledge.",
+            text: "We use it as a first exploratory step when a team has multiple candidate variables and wants a starting structural hypothesis, before refining it with domain knowledge.",
           },
         ],
         comparison: {
@@ -117,7 +117,7 @@ export const en: SiteContent = {
           },
           {
             kind: "paragraph",
-            text: "It is used when an interpretable global score (BIC) is desirable and the variable set is moderate to large, where chaining many conditional independence tests — as PC does — would be more fragile.",
+            text: "We use it when an interpretable global score (BIC) is desirable and the variable set is moderate to large, where chaining many conditional independence tests — as PC does — would be more fragile.",
           },
         ],
         comparison: {
@@ -194,9 +194,18 @@ export const en: SiteContent = {
     },
     hero: {
       eyebrow: "Causal consulting for pharma",
-      title: "Do you need DAG analysis?",
-      intro:
-        "Causality Graphs works with pharma, clinical research, and biostatistics teams to map assumptions, review confounding structure, and support evidence decisions using directed acyclic graphs (DAG's) and dynamic causal models (DCM).",
+      title: "Statistical analysis and causal discovery",
+      intro: [
+        { text: "Data analysis that does not stop at " },
+        { text: "correlation", emphasis: true },
+        { text: " and goes all the way to " },
+        { text: "causal discovery", emphasis: true },
+        { text: ": meta-analysis, directed acyclic graphs (DAG), dynamic causal models (DCM), and structure-learning algorithms. We work with pharma, clinical research, and biostatistics teams to map assumptions, review " },
+        { text: "confounding structure", emphasis: true },
+        { text: ", and support " },
+        { text: "evidence decisions", emphasis: true },
+        { text: " when ideal study conditions are not available." },
+      ],
       chips: ["Single-arm studies", "Partial blinding", "Longitudinal response", "Evidence strategy"],
       primaryCta: "Book a consultation",
       secondaryCta: "Explore techniques",
@@ -219,7 +228,7 @@ export const en: SiteContent = {
       eyebrow: "Built for technical stakeholders",
       heading:
         "Built for clinical teams, biostatistics groups, translational medicine, and evidence strategy leaders.",
-      body: "The approach is designed for research environments where methodological rigor, internal alignment, and practical decision-making all have to coexist.",
+      body: "We design our approach for research environments where methodological rigor, internal alignment, and practical decision-making all have to coexist.",
     },
     services: {
       eyebrow: "What we do",
@@ -310,11 +319,11 @@ export const en: SiteContent = {
     },
     philosophy: {
       eyebrow: "Philosophy",
-      heading: "The work is collaborative, assumption-aware, and designed to hold up across teams.",
+      heading: "We work collaboratively, stay aware of our assumptions, and build work that holds up across teams.",
       principles: [
-        "Make assumptions explicit before they become invisible defaults.",
-        "Separate structural signal from statistical convenience.",
-        "Use causal thinking to improve decisions, not just analysis complexity.",
+        "We make assumptions explicit before they become invisible defaults.",
+        "We separate structural signal from statistical convenience.",
+        "We use causal thinking to improve decisions, not just analysis complexity.",
       ],
       teamPreviewEyebrow: "Team snapshot",
     },
@@ -329,25 +338,26 @@ export const en: SiteContent = {
   about: {
     seo: {
       title: "About — Causality Graphs",
-      description: "Why Causality Graphs exists and the operating principles behind the consultancy.",
+      description: "Why we exist and the operating principles behind our work.",
     },
     eyebrow: "Why this brand exists",
     title: "Causal clarity for evidence environments that are structurally difficult.",
     intro:
-      "Causality Graphs exists because many pharmacological decisions must be made under conditions that are incomplete, constrained, or impossible to idealize. The answer is not to pretend the structure is simple. The answer is to model it honestly.",
+      "We exist because many pharmacological decisions must be made under conditions that are incomplete, constrained, or impossible to idealize. The answer is not to pretend the structure is simple. The answer is to model it honestly.",
     mission: {
       eyebrow: "Mission",
-      heading: "Bring explicit causal reasoning into places where ambiguity usually gets buried.",
-      body: "The consultancy helps teams clarify what can reasonably be claimed, where the risks sit, and how to move from partial evidence to stronger decisions without overstating certainty.",
+      heading: "We turn correlation into causality",
+      body:
+        "Causal relationships are not written into the data. What a dataset shows is correlation: variables that move together, without saying which one pushes which. That is exactly where our work begins. Applying specific causal discovery and inference techniques — DAGs, structure-learning algorithms, dynamic causal models — we move from that tangle of associations to the most probable causal structure, and we make explicit the assumption holding up every arrow. We make visible what is not obvious at first sight: not manufactured certainty, but a defensible map of what causes what, with its limits in plain view, that your team can question, challenge, and act on.",
     },
     operating: {
       eyebrow: "Operating principles",
-      heading: "The work stays rigorous, practical, and readable across technical audiences.",
+      heading: "We keep our work rigorous, practical, and readable across technical audiences.",
     },
     principles: [
-      "Make assumptions explicit before they become invisible defaults.",
-      "Separate structural signal from statistical convenience.",
-      "Use causal thinking to improve decisions, not just analysis complexity.",
+      "We make assumptions explicit before they become invisible defaults.",
+      "We separate structural signal from statistical convenience.",
+      "We use causal thinking to improve decisions, not just analysis complexity.",
     ],
   },
 
@@ -359,7 +369,7 @@ export const en: SiteContent = {
     eyebrow: "Contact",
     title: "Tell us about the study and the decision you are trying to support.",
     intro:
-      "Use the form as a starting point for a confidential, focused conversation. The structure is intentionally simple so teams can describe the scientific problem without friction.",
+      "Use the form as a starting point for a confidential, focused conversation. We kept it intentionally simple so you can describe the scientific problem without friction.",
     form: {
       nameLabel: "Name",
       namePlaceholder: "Your name",
@@ -394,35 +404,63 @@ export const en: SiteContent = {
     eyebrow: "Research-minded team",
     title: "A small expert group built for high-trust scientific collaboration.",
     intro:
-      "The team layout is intentionally editorial rather than corporate. The emphasis is on methodological focus, collaboration style, and the kind of rigor clients can expect.",
+      "We are a small and deliberately interdisciplinary group: neuroscience and computational modeling, data analysis, physics, and consulting strategy. One mission holds us together — making explicit the causal structure that data keeps hidden, so that the teams we work with decide on a defensible map rather than on a well-presented correlation.",
     members: [
       {
         name: "Dr. Alex Sospedra",
-        role: "Modeling expert",
-        focus: "DAG design, scientific decisions and architecture for constrained pharmacological studies.",
+        role: "Causal modeling expert",
+        focus:
+          "Psychology graduate (UNED) with a master's in Neuroscience from the Institute of Neuroscience of Alicante. On a PhD scholarship from the University of Campania \"Luigi Vanvitelli\" (Naples), he studies the role of dopamine in decision-making, combining behavioral experiments, computational modeling and neuroimaging. Here he designs the DAGs and decides which causal structure is defensible.",
       },
       {
         name: "Daniel Rico",
         role: "Data Analyst",
-        focus: "Denoising, correlating and parameter recovery",
+        focus:
+          "He works the data layer everything else rests on: denoising, correlation structure, and parameter recovery. It is the step before any causal claim, because if the signal does not survive the noise, no structure estimated on top of it will hold.",
       },
       {
         name: "Luis Gómez",
         role: "Founder and Strategy Lead",
-        focus: "Strategy and approach, communicator, operations officer",
+        focus:
+          "Physicist (UNED) and entrepreneur, with a background as operations director and on the commercial side of consulting specialized in research and pharma. He translates between the rigor of the model and the client's decision: he frames the problem, defines the scope of the engagement, and makes sure the result arrives in a form a leadership team can actually use. He is the first point of contact in any conversation.",
       },
     ],
+    initiative: {
+      eyebrow: "The initiative",
+      heading: "Causality Graphs is an initiative by FunnyFace SL.",
+      body: [
+        "All three of us come from research, and research is where the tools for reasoning about causes were built — tools industry still barely uses. Causality Graphs comes out of exactly that gap: the decision to export that state-of-the-art instrumentation — causal discovery, dynamic modeling, inference under constraints — from the lab to the teams that actually have to make evidence decisions.",
+        "Under the FunnyFace SL umbrella, the initiative is also a space to explore a concept that was purely philosophical for centuries and that today, thanks to data science, has become an answerable question: what causes what, and with how much confidence.",
+      ],
+      points: [
+        {
+          title: "From research to industry",
+          description:
+            "The methods we apply are the ones used today in neuroscience and biostatistics labs, not a watered-down version of them.",
+        },
+        {
+          title: "Backed by FunnyFace SL",
+          description:
+            "Causality Graphs is the initiative through which FunnyFace SL brings that instrumentation to pharma and clinical research teams.",
+        },
+        {
+          title: "From philosophy to data",
+          description:
+            "What causes what was a philosophical question for centuries. Data science made it answerable, with explicit assumptions and the limits in plain view.",
+        },
+      ],
+    },
   },
 
   techniques: {
     seo: {
       title: "Techniques — Causality Graphs",
-      description: "The methodological toolkit behind the consultancy: DAGs, dynamic causal models, and more.",
+      description: "The methodological toolkit we work with: DAGs, dynamic causal models, and more.",
     },
     eyebrow: "Method stack",
     title: "Techniques for causal clarity in pharmacological research.",
     intro:
-      "This page explains the methodological toolkit behind the consultancy. The emphasis is not methodological theater, but disciplined reasoning that supports real evidence decisions.",
+      "Here we explain the methodological toolkit we work with. We are not interested in methodological theater, but in disciplined reasoning that supports real evidence decisions.",
     items: [
       {
         title: "Directed Acyclic Graphs",
@@ -467,7 +505,7 @@ export const en: SiteContent = {
       {
         title: "Sensitivity analysis",
         description:
-          "Good consulting does not stop at a single preferred model. It shows how conclusions move when assumptions weaken or alternative structures are considered.",
+          "We do not stop at a single preferred model: we show how conclusions move when assumptions weaken or alternative structures are considered.",
         bullets: [
           "Stress-test claims under limited evidence quality.",
           "Make uncertainty visible without collapsing into indecision.",
@@ -495,10 +533,10 @@ export const en: SiteContent = {
     eyebrow: "Representative work",
     title: "Selected engagements where causal structure changed the conversation.",
     intro:
-      "These examples show the kind of problems Causality Graphs is built to support: pharmacological evidence under imperfect controls, temporal complexity, or interpretation risk.",
+      "These examples show the kind of problems we are built to support: pharmacological evidence under imperfect controls, temporal complexity, or interpretation risk.",
     framing: {
       eyebrow: "How projects are framed",
-      heading: "Each engagement is organized around a decision, not just an analysis request.",
+      heading: "We organize each engagement around a decision, not just an analysis request.",
     },
     caseLabel: "Representative format",
     cases: [
@@ -524,7 +562,7 @@ export const en: SiteContent = {
     ],
     problemTypes: {
       eyebrow: "Typical problem types",
-      heading: "The consultancy focuses on evidence situations where conventional reading is not enough.",
+      heading: "We focus on evidence situations where conventional reading is not enough.",
       points: [
         "Single-arm pharmacological studies that need stronger interpretation boundaries.",
         "Longitudinal treatment response where dose changes, timing, or adaptation matter.",

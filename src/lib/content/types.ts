@@ -10,6 +10,9 @@ export type TechniqueCard = { name: string; summary: string; useCase: string };
 export type CaseStudy = { title: string; challenge: string; method: string; outcome: string };
 export type DetailedTechnique = { title: string; description: string; bullets: string[] };
 export type TeamMember = { name: string; role: string; focus: string };
+
+/** Fragmento de texto corrido; `emphasis` resalta los términos clave. */
+export type TextSegment = { text: string; emphasis?: boolean };
 export type ContactDetail = { label: string; value: string };
 
 export type AcademyMethodStatus = "disponible" | "en-preparacion";
@@ -88,7 +91,7 @@ export type SiteContent = {
     hero: {
       eyebrow: string;
       title: string;
-      intro: string;
+      intro: TextSegment[];
       chips: string[];
       primaryCta: string;
       secondaryCta: string;
@@ -149,6 +152,12 @@ export type SiteContent = {
     title: string;
     intro: string;
     members: TeamMember[];
+    initiative: {
+      eyebrow: string;
+      heading: string;
+      body: string[];
+      points: ServiceCard[];
+    };
   };
 
   techniques: {

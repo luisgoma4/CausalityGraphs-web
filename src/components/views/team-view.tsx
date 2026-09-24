@@ -16,6 +16,26 @@ export function TeamView({ content }: { content: SiteContent }) {
           </article>
         ))}
       </section>
+
+      <section className="initiative-panel">
+        <div className="initiative-lead">
+          <p className="eyebrow">{team.initiative.eyebrow}</p>
+          <h2 className="section-title">{team.initiative.heading}</h2>
+        </div>
+        <div className="initiative-body">
+          {team.initiative.body.map((paragraph) => (
+            <p key={paragraph}>{paragraph}</p>
+          ))}
+        </div>
+        <div className="initiative-points">
+          {team.initiative.points.map((point) => (
+            <article key={point.title} className="initiative-point">
+              <h3>{point.title}</h3>
+              <p>{point.description}</p>
+            </article>
+          ))}
+        </div>
+      </section>
     </SiteShell>
   );
 }

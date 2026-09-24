@@ -15,10 +15,20 @@ export function HomeView({ content, contactHref, techniquesHref }: {
       <div className="page-content">
         <section className="home-hero">
           <div className="container hero-grid hero-grid-single">
-            <div className="hero-copy hero-copy-wide">
+            <div className="hero-copy hero-copy-wide hero-copy-centered">
               <p className="eyebrow">{home.hero.eyebrow}</p>
               <h1 className="hero-title">{home.hero.title}</h1>
-              <p className="hero-intro">{home.hero.intro}</p>
+              <p className="hero-intro">
+                {home.hero.intro.map((segment, index) =>
+                  segment.emphasis ? (
+                    <strong key={index} className="hero-intro-key">
+                      {segment.text}
+                    </strong>
+                  ) : (
+                    <span key={index}>{segment.text}</span>
+                  ),
+                )}
+              </p>
               <div className="hero-chip-row">
                 {home.hero.chips.map((chip) => (
                   <span key={chip} className="hero-chip">

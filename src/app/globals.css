@@ -423,6 +423,58 @@ textarea {
   max-width: 58rem;
 }
 
+/* Titular, entradilla y chips centrados en el ancho de la pantalla. El resto
+   del hero (métricas) mantiene su propia rejilla. */
+.hero-copy-centered {
+  margin-inline: auto;
+  align-items: center;
+  text-align: center;
+}
+
+.hero-copy-centered .hero-title,
+.hero-copy-centered .hero-intro {
+  max-width: 24ch;
+  margin-inline: auto;
+}
+
+.hero-copy-centered .hero-intro {
+  max-width: 62ch;
+}
+
+/* Términos clave de la entradilla: suben del gris de lectura al azul de marca.
+   Sin fondo ni subrayado — el brief pide realce contenido, no marcador. */
+.hero-intro-key {
+  color: var(--color-primary);
+  font-weight: 600;
+}
+
+.hero-copy-centered .hero-chip-row,
+.hero-copy-centered .hero-actions {
+  justify-content: center;
+}
+
+.hero-copy-centered .metric-grid {
+  width: 100%;
+  text-align: left;
+}
+
+/* El hero superpone el texto al grafo 3D. Sin un velo intermedio, el titular
+   y el párrafo caen sobre las esferas saturadas y pierden contraste. Se
+   desvanece hacia los lados para no tapar la visualización. */
+.hero-copy::before {
+  content: "";
+  position: absolute;
+  inset: -2.5rem -50vw;
+  z-index: -1;
+  pointer-events: none;
+  background: radial-gradient(
+    ellipse 62% 58% at 50% 45%,
+    var(--color-surface) 0%,
+    color-mix(in srgb, var(--color-surface) 85%, transparent) 52%,
+    transparent 78%
+  );
+}
+
 .eyebrow {
   margin: 0;
   color: var(--color-primary-hover);
@@ -726,9 +778,11 @@ textarea {
   }
 }
 
+/* Los titulares de sección van por debajo del H1 de la página: con 12ch los
+   titulares largos se partían en seis o siete líneas y competían con el hero. */
 .section-title {
-  max-width: 12ch;
-  font-size: clamp(2.1rem, 5vw, 3.6rem);
+  max-width: 20ch;
+  font-size: clamp(1.9rem, 4.2vw, 2.8rem);
 }
 
 .bullet-panel,
@@ -758,6 +812,57 @@ textarea {
   border-radius: 50%;
   background: var(--color-primary);
   margin-top: 0.45rem;
+}
+
+/* Los principios de /about como cadena de nodos en lugar de tres cajas
+   idénticas: reutiliza el punto que `.principle` ya tenía como nodo y une
+   cada uno con el siguiente. Es el motivo DAG de la marca, solo con CSS. */
+.principles-chain {
+  gap: 0;
+}
+
+.principles-chain .principle {
+  position: relative;
+  padding: 0 0 var(--spacing-32);
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+}
+
+.principles-chain .principle:last-child {
+  padding-bottom: 0;
+}
+
+/* la arista que baja de un nodo al siguiente */
+.principles-chain .principle:not(:last-child)::before {
+  content: "";
+  position: absolute;
+  left: 0.45rem;
+  margin-left: -0.5px;
+  top: 1.55rem;
+  bottom: 0;
+  width: 1px;
+  background: linear-gradient(
+    to bottom,
+    var(--color-primary),
+    color-mix(in srgb, var(--color-primary) 20%, transparent)
+  );
+}
+
+.principle-body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-8);
+}
+
+.principle-index {
+  margin: 0;
+  color: var(--color-primary-hover);
+  font-family: var(--font-mono);
+  font-size: var(--text-caption);
+  line-height: var(--leading-caption);
+  font-weight: 600;
+  letter-spacing: 0.06em;
 }
 
 .case-card {
@@ -908,6 +1013,87 @@ textarea {
   margin: 0 0 1rem;
   color: var(--color-primary-hover);
   font-size: 1rem;
+}
+
+/* /team — la iniciativa detrás del equipo. Cierra la página con un bloque
+   sólido en lugar de otra rejilla de tarjetas. Mobile-first: una columna en
+   la base, y las dos columnas se añaden hacia arriba. */
+.initiative-panel {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--spacing-24);
+  margin-top: var(--spacing-48);
+  padding: var(--spacing-32);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface-raised);
+}
+
+.initiative-lead {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-8);
+}
+
+.initiative-body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-16);
+}
+
+.initiative-body p {
+  margin: 0;
+  color: var(--color-text-muted);
+  line-height: 1.7;
+}
+
+.initiative-points {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--spacing-24);
+  padding-top: var(--spacing-24);
+  border-top: 1px solid var(--color-border);
+}
+
+/* cada punto colgando de una arista, como los nodos de /about */
+.initiative-point {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-8);
+  padding-left: var(--spacing-16);
+  border-left: 1px solid var(--color-primary);
+}
+
+.initiative-point h3 {
+  margin: 0;
+  color: var(--color-primary);
+  font-size: var(--text-h4);
+  line-height: var(--leading-h4);
+}
+
+.initiative-point p {
+  margin: 0;
+  color: var(--color-text-muted);
+  font-size: var(--text-body-dense);
+  line-height: var(--leading-body-dense);
+}
+
+@media (min-width: 768px) {
+  .initiative-points {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1024px) {
+  .initiative-panel {
+    grid-template-columns: 0.9fr 1.1fr;
+    column-gap: var(--spacing-40);
+    padding: var(--spacing-48);
+  }
+
+  .initiative-points {
+    grid-column: 1 / -1;
+  }
 }
 
 @media (min-width: 768px) {

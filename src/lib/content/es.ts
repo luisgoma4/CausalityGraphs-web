@@ -40,10 +40,10 @@ export const es: SiteContent = {
     seo: {
       title: "Academia — Causality Graphs",
       description:
-        "Glosario técnico de los métodos de descubrimiento causal e inferencia causal que usa la consultora: PC, GES, LiNGAM y más.",
+        "Glosario técnico de los métodos de descubrimiento causal e inferencia causal que usamos: PC, GES, LiNGAM y más.",
     },
     eyebrow: "Glosario de métodos",
-    title: "Academia: los métodos de descubrimiento causal detrás del trabajo.",
+    title: "Academia: los métodos de descubrimiento causal detrás de nuestro trabajo.",
     intro:
       "Una referencia técnica breve para responsables de bioestadística y equipos clínicos: qué hace cada algoritmo, qué supuestos exige y cuándo tiene sentido usarlo.",
     tocHeading: "Índice de métodos",
@@ -85,7 +85,7 @@ export const es: SiteContent = {
           },
           {
             kind: "paragraph",
-            text: "En consultoría se usa como primer paso exploratorio cuando el equipo tiene múltiples variables candidatas y quiere una hipótesis estructural de partida, antes de refinarla con conocimiento de dominio.",
+            text: "Lo usamos como primer paso exploratorio cuando el equipo tiene múltiples variables candidatas y quiere una hipótesis estructural de partida, antes de refinarla con conocimiento de dominio.",
           },
         ],
         comparison: {
@@ -117,7 +117,7 @@ export const es: SiteContent = {
           },
           {
             kind: "paragraph",
-            text: "Se usa cuando interesa una puntuación global interpretable (BIC) y el conjunto de variables es de tamaño moderado a grande, donde encadenar muchos tests de independencia condicional —como hace PC— sería más frágil.",
+            text: "Lo usamos cuando interesa una puntuación global interpretable (BIC) y el conjunto de variables es de tamaño moderado a grande, donde encadenar muchos tests de independencia condicional —como hace PC— sería más frágil.",
           },
         ],
         comparison: {
@@ -195,9 +195,18 @@ export const es: SiteContent = {
     },
     hero: {
       eyebrow: "Consultoría causal para farma",
-      title: "¿Necesitas un análisis DAG?",
-      intro:
-        "Causality Graphs trabaja con equipos de farma, investigación clínica y bioestadística para mapear supuestos, revisar la estructura de confusión y respaldar decisiones de evidencia mediante grafos acíclicos dirigidos (DAG) y modelos causales dinámicos (DCM).",
+      title: "Análisis estadístico y descubrimiento causal",
+      intro: [
+        { text: "Análisis de datos que no se detiene en la " },
+        { text: "correlación", emphasis: true },
+        { text: " y llega hasta el " },
+        { text: "descubrimiento causal", emphasis: true },
+        { text: ": meta-análisis, grafos acíclicos dirigidos (DAG), modelos causales dinámicos (DCM) y algoritmos de estructura. Trabajamos con equipos de farma, investigación clínica y bioestadística para mapear supuestos, revisar la " },
+        { text: "estructura de confusión", emphasis: true },
+        { text: " y respaldar " },
+        { text: "decisiones de evidencia", emphasis: true },
+        { text: " cuando las condiciones de estudio ideales no están disponibles." },
+      ],
       chips: ["Estudios de un solo brazo", "Cegamiento parcial", "Respuesta longitudinal", "Estrategia de evidencia"],
       primaryCta: "Reservar una consulta",
       secondaryCta: "Explorar técnicas",
@@ -220,7 +229,7 @@ export const es: SiteContent = {
       eyebrow: "Pensado para interlocutores técnicos",
       heading:
         "Pensado para equipos clínicos, grupos de bioestadística, medicina traslacional y responsables de estrategia de evidencia.",
-      body: "El enfoque está diseñado para entornos de investigación donde el rigor metodológico, la alineación interna y la toma de decisiones práctica deben convivir.",
+      body: "Diseñamos nuestro enfoque para entornos de investigación donde el rigor metodológico, la alineación interna y la toma de decisiones práctica deben convivir.",
     },
     services: {
       eyebrow: "Qué hacemos",
@@ -311,11 +320,11 @@ export const es: SiteContent = {
     },
     philosophy: {
       eyebrow: "Filosofía",
-      heading: "El trabajo es colaborativo, consciente de los supuestos y está diseñado para sostenerse entre equipos.",
+      heading: "Trabajamos de forma colaborativa, consciente de los supuestos y pensada para sostenerse entre equipos.",
       principles: [
-        "Hacer explícitos los supuestos antes de que se conviertan en valores por defecto invisibles.",
-        "Separar la señal estructural de la conveniencia estadística.",
-        "Usar el pensamiento causal para mejorar decisiones, no solo la complejidad del análisis.",
+        "Hacemos explícitos los supuestos antes de que se conviertan en valores por defecto invisibles.",
+        "Separamos la señal estructural de la conveniencia estadística.",
+        "Usamos el pensamiento causal para mejorar decisiones, no solo la complejidad del análisis.",
       ],
       teamPreviewEyebrow: "Vista rápida del equipo",
     },
@@ -330,25 +339,26 @@ export const es: SiteContent = {
   about: {
     seo: {
       title: "Sobre nosotros — Causality Graphs",
-      description: "Por qué existe Causality Graphs y los principios de trabajo detrás de la consultora.",
+      description: "Por qué existimos y los principios de trabajo que sostienen lo que hacemos.",
     },
     eyebrow: "Por qué existe esta marca",
     title: "Claridad causal para entornos de evidencia estructuralmente difíciles.",
     intro:
-      "Causality Graphs existe porque muchas decisiones farmacológicas deben tomarse en condiciones incompletas, restringidas o imposibles de idealizar. La respuesta no es fingir que la estructura es simple. La respuesta es modelarla con honestidad.",
+      "Existimos porque muchas decisiones farmacológicas deben tomarse en condiciones incompletas, restringidas o imposibles de idealizar. La respuesta no es fingir que la estructura es simple. La respuesta es modelarla con honestidad.",
     mission: {
       eyebrow: "Misión",
-      heading: "Llevar el razonamiento causal explícito a lugares donde la ambigüedad suele quedar enterrada.",
-      body: "La consultora ayuda a los equipos a clarificar qué se puede afirmar razonablemente, dónde están los riesgos y cómo pasar de evidencia parcial a decisiones más sólidas sin sobreestimar la certeza.",
+      heading: "Transformamos correlación en causalidad",
+      body:
+        "Las relaciones causales no están escritas en los datos. Lo que un conjunto de datos muestra son correlaciones: variables que se mueven juntas, sin decir cuál empuja a cuál. Nuestro trabajo empieza justo ahí. Aplicando técnicas específicas de descubrimiento e inferencia causal —DAGs, algoritmos de estructura, modelos causales dinámicos— pasamos de esa maraña de asociaciones a la estructura causal más probable, y dejamos explícito el supuesto que sostiene cada flecha. Hacemos visible lo que no lo es a primera vista: no una certeza fabricada, sino un mapa defendible de qué causa qué, con sus límites a la vista, que tu equipo puede discutir, criticar y usar para decidir.",
     },
     operating: {
       eyebrow: "Principios de trabajo",
-      heading: "El trabajo se mantiene riguroso, práctico y legible para audiencias técnicas.",
+      heading: "Trabajamos de forma rigurosa, práctica y legible para audiencias técnicas.",
     },
     principles: [
-      "Hacer explícitos los supuestos antes de que se conviertan en valores por defecto invisibles.",
-      "Separar la señal estructural de la conveniencia estadística.",
-      "Usar el pensamiento causal para mejorar decisiones, no solo la complejidad del análisis.",
+      "Hacemos explícitos los supuestos antes de que se conviertan en valores por defecto invisibles.",
+      "Separamos la señal estructural de la conveniencia estadística.",
+      "Usamos el pensamiento causal para mejorar decisiones, no solo la complejidad del análisis.",
     ],
   },
 
@@ -360,7 +370,7 @@ export const es: SiteContent = {
     eyebrow: "Contacto",
     title: "Cuéntanos sobre el estudio y la decisión que intentas respaldar.",
     intro:
-      "Usa el formulario como punto de partida para una conversación confidencial y enfocada. La estructura es intencionadamente simple para que los equipos puedan describir el problema científico sin fricción.",
+      "Usa el formulario como punto de partida para una conversación confidencial y enfocada. La hemos mantenido intencionadamente simple para que puedas describir el problema científico sin fricción.",
     form: {
       nameLabel: "Nombre",
       namePlaceholder: "Tu nombre",
@@ -395,35 +405,63 @@ export const es: SiteContent = {
     eyebrow: "Equipo con mentalidad de investigación",
     title: "Un pequeño grupo experto construido para una colaboración científica de alta confianza.",
     intro:
-      "La presentación del equipo es intencionadamente editorial en lugar de corporativa. El énfasis está en el enfoque metodológico, el estilo de colaboración y el tipo de rigor que los clientes pueden esperar.",
+      "Somos un grupo pequeño y deliberadamente interdisciplinar: neurociencia y modelado computacional, análisis de datos, física y estrategia de consultoría. Nos une una misión concreta: hacer explícita la estructura causal que los datos esconden, para que los equipos con los que trabajamos decidan sobre un mapa defendible y no sobre una correlación bien presentada.",
     members: [
       {
         name: "Dr. Alex Sospedra",
-        role: "Experto en modelado",
-        focus: "Diseño de DAG, decisiones científicas y arquitectura para estudios farmacológicos con restricciones.",
+        role: "Experto en modelado causal",
+        focus:
+          "Psicólogo (UNED) y máster en Neurociencia por el Instituto de Neurociencias de Alicante. Investiga con una beca doctoral de la Universidad de Campania «Luigi Vanvitelli» (Nápoles) el papel de la dopamina en la toma de decisiones, combinando experimentos conductuales, modelado computacional y neuroimagen. Aquí diseña los DAGs y decide qué estructura causal es defendible.",
       },
       {
         name: "Daniel Rico",
         role: "Analista de datos",
-        focus: "Eliminación de ruido, correlación y recuperación de parámetros",
+        focus:
+          "Trabaja la capa de datos sobre la que se apoya todo lo demás: eliminación de ruido, estructura de correlaciones y recuperación de parámetros. Es el paso previo a cualquier afirmación causal, porque si la señal no sobrevive al ruido, la estructura que se estime encima no se sostiene.",
       },
       {
         name: "Luis Gómez",
         role: "Fundador y responsable de estrategia",
-        focus: "Estrategia y enfoque, comunicación, operaciones",
+        focus:
+          "Físico (UNED) y emprendedor, con recorrido como director de operaciones y en el lado comercial de la consultoría especializada en investigación y farmacia. Traduce entre el rigor del modelo y la decisión del cliente: enmarca el problema, define el alcance del proyecto y se asegura de que el resultado llegue en un formato que una dirección pueda usar. Es el primer contacto en cualquier conversación.",
       },
     ],
+    initiative: {
+      eyebrow: "La iniciativa",
+      heading: "Causality Graphs es una iniciativa de FunnyFace SL.",
+      body: [
+        "Los tres venimos de la investigación, y es en la investigación donde se han desarrollado las herramientas para razonar sobre causas que la industria todavía apenas usa. Causality Graphs nace exactamente de esa distancia: la decisión de exportar ese instrumental de última generación —descubrimiento causal, modelado dinámico, inferencia bajo restricciones— desde el laboratorio hasta los equipos que tienen que tomar decisiones de evidencia.",
+        "Bajo el paraguas de FunnyFace SL, la iniciativa es también un espacio donde explorar un concepto que fue puramente filosófico durante siglos y que hoy, gracias a la ciencia de datos, se ha convertido en una pregunta que se puede responder: qué causa qué, y con cuánta confianza.",
+      ],
+      points: [
+        {
+          title: "De la investigación a la industria",
+          description:
+            "Los métodos que aplicamos son los que se usan hoy en laboratorios de neurociencia y bioestadística, no una versión divulgativa de ellos.",
+        },
+        {
+          title: "Respaldo de FunnyFace SL",
+          description:
+            "Causality Graphs es la iniciativa con la que FunnyFace SL lleva ese instrumental a los equipos de farma e investigación clínica.",
+        },
+        {
+          title: "De la filosofía al dato",
+          description:
+            "Qué causa qué fue una pregunta filosófica durante siglos. La ciencia de datos la ha vuelto respondible, con supuestos explícitos y los límites a la vista.",
+        },
+      ],
+    },
   },
 
   techniques: {
     seo: {
       title: "Técnicas — Causality Graphs",
-      description: "El conjunto de herramientas metodológicas detrás de la consultora: DAGs, modelos causales dinámicos y más.",
+      description: "Las herramientas metodológicas que usamos: DAGs, modelos causales dinámicos y más.",
     },
     eyebrow: "Conjunto de métodos",
     title: "Técnicas para la claridad causal en investigación farmacológica.",
     intro:
-      "Esta página explica el conjunto de herramientas metodológicas detrás de la consultora. El énfasis no está en el teatro metodológico, sino en un razonamiento disciplinado que respalda decisiones de evidencia reales.",
+      "Aquí explicamos las herramientas metodológicas que usamos. No nos interesa el teatro metodológico, sino el razonamiento disciplinado que respalda decisiones de evidencia reales.",
     items: [
       {
         title: "Grafos acíclicos dirigidos",
@@ -468,7 +506,7 @@ export const es: SiteContent = {
       {
         title: "Análisis de sensibilidad",
         description:
-          "Una buena consultoría no se detiene en un único modelo preferido. Muestra cómo se mueven las conclusiones cuando los supuestos se debilitan o se consideran estructuras alternativas.",
+          "No nos detenemos en un único modelo preferido: mostramos cómo se mueven las conclusiones cuando los supuestos se debilitan o se consideran estructuras alternativas.",
         bullets: [
           "Poner a prueba las afirmaciones bajo calidad de evidencia limitada.",
           "Hacer visible la incertidumbre sin caer en la indecisión.",
@@ -496,10 +534,10 @@ export const es: SiteContent = {
     eyebrow: "Trabajo representativo",
     title: "Proyectos seleccionados donde la estructura causal cambió la conversación.",
     intro:
-      "Estos ejemplos muestran el tipo de problemas que Causality Graphs está preparada para respaldar: evidencia farmacológica bajo controles imperfectos, complejidad temporal o riesgo de interpretación.",
+      "Estos ejemplos muestran el tipo de problemas que estamos preparados para respaldar: evidencia farmacológica bajo controles imperfectos, complejidad temporal o riesgo de interpretación.",
     framing: {
       eyebrow: "Cómo se enmarcan los proyectos",
-      heading: "Cada proyecto se organiza en torno a una decisión, no solo a una solicitud de análisis.",
+      heading: "Organizamos cada proyecto en torno a una decisión, no solo a una solicitud de análisis.",
     },
     caseLabel: "Formato representativo",
     cases: [
@@ -525,7 +563,7 @@ export const es: SiteContent = {
     ],
     problemTypes: {
       eyebrow: "Tipos de problema habituales",
-      heading: "La consultora se centra en situaciones de evidencia donde una lectura convencional no basta.",
+      heading: "Nos centramos en situaciones de evidencia donde una lectura convencional no basta.",
       points: [
         "Estudios farmacológicos de un solo brazo que necesitan límites de interpretación más sólidos.",
         "Respuesta longitudinal al tratamiento donde importan los cambios de dosis, el tiempo o la adaptación.",
