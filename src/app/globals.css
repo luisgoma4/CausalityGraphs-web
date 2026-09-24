@@ -97,28 +97,32 @@ textarea {
 .brand-lockup {
   display: inline-flex;
   align-items: center;
-  gap: 0.9rem;
-  font-size: 0.95rem;
-  letter-spacing: 0.02em;
+  gap: 0.6rem;
 }
 
-.brand-lockup strong {
+/* Monograma y nombre son PNG con fondo recortado; se dimensionan por altura
+   y el ancho lo calcula el navegador a partir de la proporción original. */
+.brand-monogram,
+.brand-wordmark {
   display: block;
-  font-size: 1.05rem;
+  width: auto;
+  object-fit: contain;
 }
 
-.brand-lockup small {
-  display: block;
-  color: var(--color-text-muted);
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
+.brand-monogram {
+  height: 2rem;
 }
 
-.brand-dot {
-  width: 1rem;
-  height: 1rem;
-  border-radius: var(--radius-full);
-  background: var(--color-primary);
+.brand-wordmark {
+  height: 1.75rem;
+}
+
+/* Las dos piezas son de tinta oscura sobre transparente: en modo oscuro
+   desaparecerían contra el fondo. La inversión con giro de tono las aclara
+   conservando el tono de las esferas del monograma. */
+:root[data-theme="dark"] .brand-monogram,
+:root[data-theme="dark"] .brand-wordmark {
+  filter: invert(1) hue-rotate(180deg);
 }
 
 .site-nav {
@@ -352,13 +356,11 @@ textarea {
   }
 }
 
-.site-nav a,
-.footer-nav a {
+.site-nav a {
   position: relative;
 }
 
-.site-nav a::after,
-.footer-nav a::after {
+.site-nav a::after {
   content: "";
   position: absolute;
   left: 0;
@@ -371,8 +373,7 @@ textarea {
   transition: transform 180ms ease;
 }
 
-.site-nav a:hover::after,
-.footer-nav a:hover::after {
+.site-nav a:hover::after {
   transform: scaleX(1);
 }
 
@@ -392,6 +393,10 @@ textarea {
 
 .home-hero {
   padding: 4rem 0 3rem;
+  /* El velo del hero sangra -50vw a cada lado a propósito. Sin recortarlo
+     aquí, ese sobreancho genera scroll horizontal en toda la página.
+     `clip` y no `hidden`: no crea un contenedor de scroll. */
+  overflow-x: clip;
 }
 
 .hero-grid,
@@ -453,8 +458,8 @@ textarea {
   justify-content: center;
 }
 
-.hero-copy-centered .metric-grid {
-  width: 100%;
+/* Las métricas viven fuera del bloque centrado del hero, al ancho general. */
+.metric-grid {
   text-align: left;
 }
 
@@ -467,8 +472,11 @@ textarea {
   inset: -2.5rem -50vw;
   z-index: -1;
   pointer-events: none;
+  /* 10% más pequeña (62/58 -> 56/52) y 20% más transparente que la versión
+     inicial, que tapaba demasiado el grafo. */
+  opacity: 0.8;
   background: radial-gradient(
-    ellipse 62% 58% at 50% 45%,
+    ellipse 56% 52% at 50% 45%,
     var(--color-surface) 0%,
     color-mix(in srgb, var(--color-surface) 85%, transparent) 52%,
     transparent 78%
@@ -1207,24 +1215,13 @@ textarea {
   border-top: 1px solid var(--color-border);
 }
 
-@media (min-width: 768px) {
-  .footer-grid {
-    grid-template-columns: 1fr auto;
-  }
-}
+
 
 .brand-mark {
-  margin: 0 0 0.4rem;
-  font-size: 1.1rem;
-  font-weight: 700;
-  color: var(--color-primary);
-}
-
-.footer-nav {
   display: flex;
-  flex-wrap: wrap;
-  gap: 1rem 1.4rem;
-  align-content: start;
+  align-items: center;
+  gap: 0.6rem;
+  margin: 0 0 0.75rem;
 }
 
 @media (max-width: 1080px) {

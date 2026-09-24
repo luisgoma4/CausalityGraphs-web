@@ -1,4 +1,4 @@
-import Link from "next/link";
+import Image from "next/image";
 import type { SiteContent } from "@/lib/content";
 
 export function SiteShell({
@@ -27,16 +27,25 @@ export function SiteShell({
       <footer className="site-footer">
         <div className="container footer-grid">
           <div>
-            <p className="brand-mark">Causality Graphs</p>
+            <p className="brand-mark">
+              <Image
+                src="/causality-monograma.png"
+                alt=""
+                aria-hidden="true"
+                width={1114}
+                height={696}
+                className="brand-monogram"
+              />
+              <Image
+                src="/causality-nombre.png"
+                alt="Causality Graphs"
+                width={1166}
+                height={312}
+                className="brand-wordmark"
+              />
+            </p>
             <p className="footer-copy">{content.footer.tagline}</p>
           </div>
-          <nav className="footer-nav" aria-label="Footer">
-            {content.nav.map((item) => (
-              <Link key={item.href} href={item.href}>
-                {item.label}
-              </Link>
-            ))}
-          </nav>
         </div>
       </footer>
     </div>

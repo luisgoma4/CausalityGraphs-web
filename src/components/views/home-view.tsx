@@ -44,17 +44,20 @@ export function HomeView({ content, contactHref, techniquesHref }: {
                   {home.hero.secondaryCta}
                 </Link>
               </div>
-              <div className="metric-grid">
-                {home.metrics.map((metric) => (
-                  <article key={metric.value} className="metric-card">
-                    <h2>{metric.value}</h2>
-                    <p>{metric.label}</p>
-                  </article>
-                ))}
-              </div>
             </div>
           </div>
         </section>
+
+        {/* Fuera de `.hero-copy` a propósito: dentro heredaba su ancho de 58rem
+            y quedaba más estrecho que el resto de la web. */}
+        <div className="container metric-grid">
+          {home.metrics.map((metric) => (
+            <article key={metric.value} className="metric-card">
+              <h2>{metric.value}</h2>
+              <p>{metric.label}</p>
+            </article>
+          ))}
+        </div>
 
         <section className="container section-stack">
           <section className="trust-panel">

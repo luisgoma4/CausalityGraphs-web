@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import * as Dialog from "@radix-ui/react-dialog";
@@ -23,11 +24,23 @@ export function SiteHeader() {
         <header className="site-header">
           <div className="container nav-row">
             <Link href={locale === "en" ? "/en" : "/"} className="brand-lockup">
-              <span className="brand-dot" />
-              <span>
-                <strong>Causality</strong>
-                <small>Graphs</small>
-              </span>
+              <Image
+                src="/causality-monograma.png"
+                alt=""
+                aria-hidden="true"
+                width={1114}
+                height={696}
+                className="brand-monogram"
+                priority
+              />
+              <Image
+                src="/causality-nombre.png"
+                alt="Causality Graphs"
+                width={1166}
+                height={312}
+                className="brand-wordmark"
+                priority
+              />
             </Link>
 
             <nav className="site-nav site-nav-desktop" aria-label="Primary">
