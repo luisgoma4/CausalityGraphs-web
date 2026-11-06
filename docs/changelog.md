@@ -57,3 +57,10 @@ Una entrada por slice cerrada. Lo mantiene `docs-librarian`.
 - **Ficheros:** `docs/tasks.md`, `docs/changelog.md`, `docs/02-arquitectura.md`, `src/components/site-shell.tsx`, `src/components/views/home-view.tsx`
 - **Decisiones sobre la marcha:** Verificación de 375px fue vía Playwright headless (interacción/accesibilidad), no captura visual manual con navegador. PR abierto no requerido para cierre de rama local. Deuda técnica no resuelta (5 items) anotada para futura iteración: (1) `.brand-dot` radius-full decorativo fuera de escala; (2) `.contact-form input` padding no exacto en escala 8px; (3) ausencia de `@axe-core/playwright`/Lighthouse para auditoría automática; (4) Playwright no es devDependency real, se usó ad-hoc vía `npx`; (5) `npm audit` reporta 7 vulnerabilidades (1 low, 6 high) sin investigar en detalle.
 - **Deuda anotada:** Ver sección "Decisiones" anterior.
+
+## 2026-10-31 — Revisión de seguridad (`0eb2178`)
+
+- **Qué cambió:** permisos de agentes recortados (sin acceso a todo el disco, sin ejecución arbitraria en el allow, deny de credenciales y de `.claude/settings*.json`/`hooks/**`) y `guard-bash.py` reescrito para fallar cerrado.
+- **Ficheros:** `.claude/settings.json`, `.claude/hooks/`, `docs/seguridad-2026-10-31.md`.
+- **Decisiones sobre la marcha:** los hooks se tratan como red contra accidentes; la frontera real son permisos y SO.
+- **Deuda anotada:** ver los pendientes de `docs/seguridad-2026-10-31.md`.

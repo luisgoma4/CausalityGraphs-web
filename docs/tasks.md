@@ -371,3 +371,14 @@ Rama visual-redesign-responsive completa tras 7 slices de contenido. Build está
 3. Ausencia de `@axe-core/playwright`/Lighthouse para auditoría automática de accesibilidad/rendimiento (S-08).
 4. Playwright no es devDependency formal, se usó ad-hoc vía `npx` (S-08).
 5. `npm audit` reporta 7 vulnerabilidades (1 low, 6 high) sin auditar en detalle (S-08).
+
+## Seguridad (revisión 2026-10-31)
+
+| ID | Slice | Estado | Depende de | Riesgo |
+|---|---|---|---|---|
+| SEC-01 | [Media] Dependencias con avisos en `npm audit` (impacto bajo: export estático, sin runtime Node) | pendiente | — | media |
+| SEC-02 | [Media] Formulario de contacto con protección anti-abuso mínima | pendiente | — | media |
+| SEC-03 | [Media] Ejemplo de configuración MCP (`.mcp.json.example`) sin versiones fijadas | pendiente | — | media |
+| SEC-04 | [Media] Residual de permisos: `cat/head/tail/grep/rg` y `npm run *` siguen en el allow | pendiente | — | media |
+
+Detalle y remedios: `docs/seguridad-2026-10-31.md`.
